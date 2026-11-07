@@ -1,4 +1,5 @@
 import { intro } from '../content/intro'
+import { CaptainJay } from './CaptainJay'
 import { ChapterHeader, Reveal } from './Comic'
 
 export function Introduction() {
@@ -7,8 +8,12 @@ export function Introduction() {
       <ChapterHeader id="intro-title" chapter={intro.chapter} title={intro.title} />
       <Reveal>
         <article className="panel-frame bg-gunmetal">
-          <div className="halftone-shift relative border-b-[5px] border-black bg-slate/60 px-5 py-6 sm:px-8 md:py-8">
-            <p className="comic-heading relative max-w-5xl text-3xl leading-tight text-signal sm:text-4xl md:text-5xl">{intro.lead}</p>
+          <div className="halftone-shift relative flex items-center gap-4 border-b-[5px] border-black bg-slate/60 px-5 py-6 sm:gap-8 sm:px-8 md:py-8">
+            <p className="comic-heading relative min-w-0 max-w-5xl flex-1 text-3xl leading-tight text-signal sm:text-4xl md:text-5xl">{intro.lead}</p>
+            <figure className="relative m-0 hidden shrink-0 sm:grid">
+              <CaptainJay className="h-auto w-32 drop-shadow-[4px_4px_0_#000] md:w-40" title="Captain Jay, my comic pilot persona" />
+              <figcaption className="caption-box -mt-2 w-fit justify-self-center -rotate-2 px-2 py-0.5 text-xs uppercase">Captain Jay</figcaption>
+            </figure>
           </div>
 
           <div className="grid gap-px bg-black md:grid-cols-3">

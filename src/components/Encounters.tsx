@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { consoleNote, endOfIssue, jet } from '../content/fun'
 import { chapters, links } from '../content/site'
+import { CaptainJay } from './CaptainJay'
 import { copyText } from './copyText'
 
 /** Remembers for this visit that something was shown. Works without storage too. */
@@ -180,7 +181,10 @@ export function Encounters() {
           >
             <JetArt />
             <div className="jet-bubble relative grid max-w-[min(22rem,calc(100vw-2*var(--edge)-1rem))] gap-2 border-[3px] border-black bg-cream p-3 text-night shadow-[4px_4px_0_#000]">
-              <p className="comic-heading text-xl leading-none">{jet.captain}</p>
+              <div className="flex items-center gap-2.5">
+                <CaptainJay className="h-auto w-12 shrink-0" />
+                <p className="comic-heading text-xl leading-none">{jet.captain}</p>
+              </div>
               <p className="text-sm leading-snug">{jet.message}</p>
               <div className="flex flex-wrap gap-2 pt-1">
                 <button type="button" onClick={goToSignal} className={`${button} bg-signal hover:bg-night hover:text-signal`}>{jet.cta}</button>
