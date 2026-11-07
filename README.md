@@ -1,32 +1,21 @@
-# React + TypeScript + Vite
+# The Dark Coder
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Mrittunjay Dubey's portfolio as a noir comic, built with Vite, React and Tailwind. It lives beside the old site and doesn't replace it yet.
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev      # http://localhost:5173/What-to-do-/
+npm run build    # outputs to dist/
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Edit the content
+
+All copy is in `src/content/`. Search the project for `TODO:` to find what still needs filling in.
+
+## Base path
+
+`vite.config.ts` builds for GitHub Pages at `/What-to-do-/`. If the repo is renamed or the site moves to a root address, build with `VITE_BASE` set to the new path, such as `VITE_BASE=/`.
+
+To replace the old site later, publish the contents of `dist/`. Nothing does this automatically.

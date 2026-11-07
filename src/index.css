@@ -1,111 +1,132 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
+@import "@fontsource/bangers/index.css";
+@import "@fontsource-variable/inter/index.css";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+@theme {
+  --color-ink: #0b0d10;
+  --color-gunmetal: #1a1f26;
+  --color-slate: #2b323c;
+  --color-fog: #c6ccd4;
+  --color-paper: #f2f3f0;
+  --color-signal: #f5c518;
+  --color-blood: #c1121f;
+  --font-comic: "Bangers", "Impact", "Arial Narrow", sans-serif;
+  --font-body: "Inter Variable", "Segoe UI", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+html {
+  scroll-behavior: smooth;
+  /* Keeps jump links clear of the sticky nav. */
+  scroll-padding-top: 4.5rem;
 }
 
 body {
   margin: 0;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  overflow-x: clip;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+:focus-visible {
+  outline: 3px solid var(--color-signal);
+  outline-offset: 2px;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+.comic-heading {
+  font-family: var(--font-comic);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* A panel: thick black border, thin light gutter around it. */
+.panel-frame {
+  border: 5px solid #000;
+  box-shadow: 0 0 0 2px var(--color-fog);
+}
+
+.halftone {
+  background-image: radial-gradient(rgb(198 204 212 / 0.16) 1.2px, transparent 1.5px);
+  background-size: 8px 8px;
+}
+
+.rain {
+  background-image: repeating-linear-gradient(
+    102deg,
+    transparent 0 46px,
+    rgb(198 204 212 / 0.07) 46px 47px,
+    transparent 47px 92px
+  );
+  background-size: 200px 200px;
+  animation: rain-fall 1.4s linear infinite;
+}
+
+@keyframes rain-fall {
+  to {
+    background-position: -42px 200px;
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+.masthead {
+  color: var(--color-signal);
+  text-shadow: 4px 4px 0 #000, 7px 7px 0 var(--color-blood);
+  line-height: 0.92;
+}
+
+.caption-box {
+  background: var(--color-signal);
+  color: var(--color-ink);
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.price-burst {
+  clip-path: polygon(
+    50% 0, 61% 12%, 77% 6%, 80% 22%, 96% 26%, 89% 41%, 100% 54%, 86% 62%, 88% 79%,
+    71% 78%, 62% 94%, 49% 84%, 36% 96%, 28% 79%, 11% 81%, 14% 63%, 0 53%, 11% 41%,
+    5% 25%, 21% 22%, 24% 6%, 39% 12%
+  );
+}
+
+/* Sound effects appear only on hover or keyboard focus, and never take pointer events. */
+.sfx {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(-8deg) scale(0.7);
+  transition: opacity 150ms ease, transform 150ms ease;
+  color: var(--color-ink);
+  background: var(--color-signal);
+  border: 2px solid #000;
+  padding: 0 0.4em;
+  white-space: nowrap;
+}
+
+.sfx-host:hover .sfx,
+.sfx-host:focus-visible .sfx {
+  opacity: 1;
+  transform: rotate(-8deg) scale(1);
+}
+
+.parallax {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-}
-p {
-  margin: 0;
-}
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+  .rain {
+    animation: none;
+  }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  .sfx {
+    transition: none;
+  }
+
+  .parallax {
+    transform: none !important;
+    will-change: auto;
+  }
 }
