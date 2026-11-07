@@ -156,6 +156,16 @@ body {
   translate: 0 16px;
 }
 
+/* A gear pouch: a stitched body under a flap. */
+.pouch {
+  outline: 1px dashed rgb(198 204 212 / 0.45);
+  outline-offset: -7px;
+}
+
+.pouch-flap {
+  clip-path: polygon(0 0, 100% 0, 100% 74%, 96% 100%, 4% 100%, 0 74%);
+}
+
 .story-panel {
   transition: translate 180ms ease;
 }

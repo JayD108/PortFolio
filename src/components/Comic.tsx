@@ -15,9 +15,10 @@ export function SpeechBubble({ children, className = '' }: { children: ReactNode
 }
 
 /** Marks content that still needs writing, so it can't be mistaken for finished copy. */
-export function Todo({ children }: { children: ReactNode }) {
+export function Todo({ children, light = false }: { children: ReactNode; light?: boolean }) {
+  const colors = light ? 'border-ink text-ink' : 'border-signal text-signal'
   return (
-    <span className="inline-block border border-dashed border-signal px-1.5 text-sm font-semibold text-signal">
+    <span className={`inline-block border border-dashed px-1.5 text-sm font-semibold ${colors}`}>
       TODO: {children}
     </span>
   )

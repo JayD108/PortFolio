@@ -1,5 +1,6 @@
 import { origin } from '../content/origin'
 import { links, person, serviceRecord } from '../content/site'
+import { statusLabels, training } from '../content/training'
 import { Todo } from './Comic'
 
 const linkClass = 'font-medium text-signal underline underline-offset-4 hover:text-paper'
@@ -53,11 +54,18 @@ export function RecruiterView() {
         <p>{origin.mind.quote}</p>
       </section>
 
-      <section aria-labelledby="skills-h" className="grid gap-3">
-        <h2 id="skills-h" className="text-xl font-bold">Top skills</h2>
-        <ul className="list-disc pl-5">
-          {person.topSkills.map((skill) => <li key={skill}>{skill}</li>)}
-        </ul>
+      <section aria-labelledby="skills-h" className="grid gap-4">
+        <h2 id="skills-h" className="text-xl font-bold">Skills</h2>
+        {training.pouches.map((pouch) => (
+          <div key={pouch.id} className="grid gap-1">
+            <h3 className="font-semibold">
+              {pouch.title} <span className="font-normal text-fog">({statusLabels[pouch.status]})</span>
+            </h3>
+            <p>{pouch.items.join(', ')}</p>
+            <p className="text-fog">{pouch.note}</p>
+            {pouch.todo && <p><Todo>{pouch.todo}</Todo></p>}
+          </div>
+        ))}
       </section>
     </main>
   )
