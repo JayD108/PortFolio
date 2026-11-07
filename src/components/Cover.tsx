@@ -1,5 +1,6 @@
 import { issue, links, person } from '../content/site'
 import { CityScene } from './CityScene'
+import { Caption, Sfx } from './Comic'
 import { Emblem } from './Emblem'
 
 const secondary =
@@ -41,9 +42,7 @@ export function Cover() {
               </h1>
               <p className="text-base font-medium text-fog sm:text-lg">{person.role}</p>
 
-              <p className="caption-box w-fit -rotate-1 px-3 py-1.5 text-base font-bold sm:text-lg">
-                {person.tagline}
-              </p>
+              <Caption className="-rotate-1 px-3 py-1.5 text-base sm:text-lg">{person.tagline}</Caption>
 
               <ul aria-label="Top skills" className="flex flex-wrap gap-2 pt-1">
                 {person.topSkills.map((skill) => (
@@ -59,7 +58,7 @@ export function Cover() {
                   className="sfx-host relative inline-flex min-h-11 items-center rounded-sm border-2 border-black bg-signal px-4 text-sm font-bold text-ink shadow-[3px_3px_0_#000] hover:bg-paper"
                 >
                   {issue.openLabel}
-                  <span aria-hidden="true" className="sfx comic-heading -right-4 -top-5 text-lg">BOOT!</span>
+                  <Sfx className="-right-4 -top-5 text-lg">BOOT!</Sfx>
                 </a>
 
                 {links.resume ? (

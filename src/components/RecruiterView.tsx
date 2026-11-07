@@ -1,4 +1,6 @@
+import { origin } from '../content/origin'
 import { links, person, serviceRecord } from '../content/site'
+import { Todo } from './Comic'
 
 const linkClass = 'font-medium text-signal underline underline-offset-4 hover:text-paper'
 const todoClass = 'border border-dashed border-signal px-1.5 text-sm font-semibold text-signal'
@@ -39,6 +41,16 @@ export function RecruiterView() {
             </div>
           ))}
         </dl>
+      </section>
+
+      <section aria-labelledby="background-h" className="grid gap-3">
+        <h2 id="background-h" className="text-xl font-bold">Background</h2>
+        {origin.panels.map((panel) => (
+          <p key={panel.id}>
+            {panel.text} {panel.todo && <Todo>{panel.todo}</Todo>}
+          </p>
+        ))}
+        <p>{origin.mind.quote}</p>
       </section>
 
       <section aria-labelledby="skills-h" className="grid gap-3">

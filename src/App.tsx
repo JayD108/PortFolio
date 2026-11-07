@@ -1,4 +1,5 @@
 import { Cover } from './components/Cover'
+import { OriginStory } from './components/OriginStory'
 import { RecruiterView } from './components/RecruiterView'
 import { TopNav } from './components/TopNav'
 import { useRecruiterMode } from './hooks/useRecruiterMode'
@@ -9,7 +10,14 @@ export default function App() {
   return (
     <>
       <TopNav recruiterMode={recruiterMode} onToggle={setRecruiterMode} />
-      {recruiterMode ? <RecruiterView /> : <main><Cover /></main>}
+      {recruiterMode ? (
+        <RecruiterView />
+      ) : (
+        <main>
+          <Cover />
+          <OriginStory />
+        </main>
+      )}
     </>
   )
 }
