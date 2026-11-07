@@ -140,7 +140,7 @@ export function Signal() {
           <ul aria-label={`Ways to contact ${person.name}`} className="order-2 grid gap-2.5 md:order-1">
             <ContactRow label="Email" href={links.email ? `mailto:${links.email}` : null} display={links.email ?? undefined} todo="public email" />
             <ContactRow label="GitHub" href={links.github} display="JayD108" todo="" />
-            <ContactRow label="LinkedIn" href={links.linkedIn} display="Profile" todo="LinkedIn URL" />
+            <ContactRow label="LinkedIn" href={links.linkedIn} display="mrittunjaydubey" todo="LinkedIn URL" />
             <ContactRow label="Hugging Face" href={links.huggingFace} display="JayF14" todo="" />
           </ul>
           <div className="order-1 flex justify-center md:order-2">

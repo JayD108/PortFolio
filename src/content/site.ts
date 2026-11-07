@@ -11,12 +11,10 @@ export const person = {
 export const links = {
   github: 'https://github.com/JayD108',
   huggingFace: 'https://huggingface.co/JayF14',
-  // TODO: add your LinkedIn URL.
-  linkedIn: null as string | null,
+  linkedIn: 'https://www.linkedin.com/in/mrittunjaydubey' as string | null,
   // TODO: add your resume PDF to public/ and set this to its file name, e.g. 'resume.pdf'.
   resume: null as string | null,
-  // TODO: add the email address you want public.
-  email: null as string | null,
+  email: 'mrittunjaydubey3@gmail.com' as string | null,
 }
 
 export const issue = {
@@ -44,12 +42,8 @@ export type RecordRow = { label: string; value: string | null; todo?: string }
 export const serviceRecord: RecordRow[] = [
   { label: 'Degree', value: 'B.Tech CSE (Fintech Honors)' },
   { label: 'College', value: 'SRM Institute of Science and Technology' },
-  // TODO: verify, then set value. The old site says 2028.
-  { label: 'Graduation', value: null, todo: 'verify year' },
-  // TODO: verify, then set value. The old site says 9.85.
-  { label: 'CGPA', value: null, todo: 'verify CGPA' },
-  // TODO: verify, then set value. The old site says 92.2%, CBSE.
-  { label: 'Class 12 (CBSE)', value: null, todo: 'verify mark' },
-  // TODO: verify, then set value. The old site says 97.2%, CBSE.
-  { label: 'Class 10 (CBSE)', value: null, todo: 'verify mark' },
+  { label: 'Graduation', value: '2028' },
+  { label: 'CGPA', value: '9.85' },
+  { label: 'Class 12 (CBSE)', value: '92.2%' },
+  { label: 'Class 10 (CBSE)', value: '97.2%' },
 ]

@@ -64,10 +64,8 @@ export const training = {
       id: 'fintech',
       title: 'Fintech',
       status: 'in-training',
-      items: ['Fintech Honors'],
-      note: 'The Honors track of my B.Tech.',
-      // TODO: replace with what you've covered, then delete this line.
-      todo: "what you've covered so far",
+      items: ['Fintech Honors', 'AI in Fintech'],
+      note: 'I completed AI in Fintech this semester, one of six subjects in my Honors course.',
       sfx: 'KA-CHING!',
     },
   ] satisfies Pouch[],

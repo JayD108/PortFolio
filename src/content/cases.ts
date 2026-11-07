@@ -429,6 +429,37 @@ export const cases: CaseFile[] = [
     ],
   },
   {
+    id: 'gatekeeper',
+    category: 'dev',
+    title: 'GateKeeper',
+    domain: 'Android app',
+    problem:
+      'My parents kept getting locked out at the gate: one would arrive home while the other had forgotten to unlock it. A normal notification is easy to miss, and an early one is easy to forget.',
+    result:
+      "I designed a two-phone alert system that needs no manual tracking. It sends a quiet notice when the commuter leaves work, then sounds a looping full-screen alarm about 3 minutes from home, until the person at home taps to confirm.",
+    limit:
+      'Android only, and installed directly instead of through Google Play, because of Play’s restrictions on SMS permissions.',
+    status: 'Code not public',
+    stack: ['Kotlin', 'Android', 'Firebase', 'Geofencing', 'SMS', 'ZXing'],
+    links: [],
+    evidence: [
+      {
+        type: 'list',
+        title: 'How it works',
+        items: [
+          { term: 'Geofence triggers', detail: 'Detects leaving work and coming within 500 m of home, with no taps needed' },
+          { term: 'False alarm filter', detail: 'A time window stops short walks during the day from setting it off' },
+          { term: 'Hard-to-miss alarm', detail: 'Loops until acknowledged, and the back button cannot dismiss it' },
+          { term: 'Confirmation', detail: 'Tells the commuter when the person at home has responded' },
+          { term: 'SMS fallback', detail: 'Sends the alert by text message when there is no internet' },
+          { term: 'Honk Gate widget', detail: 'One home-screen tap to sound the alarm manually' },
+          { term: 'QR pairing', detail: 'Pairs the two phones with one scan, with no logins or passwords' },
+          { term: 'Battery note', detail: 'Includes the commuter’s battery level in the departure notice' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'apala-dashboard',
     category: 'dev',
     title: 'APALA dashboard',

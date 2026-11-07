@@ -61,10 +61,8 @@ export const sideQuests = {
     {
       id: 'android',
       title: 'Android apps',
-      text: "Apps I'm building for my parents and friends.",
+      text: 'I built GateKeeper, a messaging and notification app, for my parents. Apps for my friends are coming next.',
       stamp: 'Next issue',
-      // TODO: replace with what the apps do, then delete this line.
-      todo: 'one line on what the apps do',
       sfx: 'BUILD!',
     },
   ] satisfies ClosingPanel[],
