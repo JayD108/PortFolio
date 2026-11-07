@@ -5,6 +5,9 @@ export const person = {
   role: 'B.Tech CSE student (Fintech Honors)',
   tagline: 'Securing the systems the city runs on',
   topSkills: ['Java backend', 'C++ DSA', 'OOP, CN, OS, DBMS', 'AI / ML'],
+  // Shown on the cover and the resume. Update it whenever what you're looking for changes.
+  openTo: 'ML, AI and backend internships',
+  availability: 'Remote or part-time, starting now',
 }
 
 export const links = {

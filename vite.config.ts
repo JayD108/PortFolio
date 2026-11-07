@@ -1,13 +1,26 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 
-// GitHub Pages serves this repo at https://jayd108.github.io/PortFolio/
-// so assets need that prefix. If the repo is renamed, or the site moves to a
-// root address such as JayD108.github.io, build with VITE_BASE=/ (or the new path).
-const base = process.env.VITE_BASE ?? '/PortFolio/'
+// Vercel and the future mrittunjaydubey.in both serve the site from the root.
+// For a sub-path host such as GitHub Pages, build with VITE_BASE=/PortFolio/ (or the repo name).
+const base = process.env.VITE_BASE ?? '/'
+
+// Link previews need the site's full address. On Vercel it comes from the production domain;
+// set SITE_URL to override, for example once mrittunjaydubey.in is live.
+const siteUrl = (
+  process.env.SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://mrittunjaydubey.in')
+).replace(/\/$/, '')
+
+function siteUrlInHtml(): Plugin {
+  return {
+    name: 'site-url-in-html',
+    transformIndexHtml: (html) => html.replaceAll('__SITE_URL__', siteUrl + base.replace(/\/$/, '')),
+  }
+}
 
 export default defineConfig({
   base,
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), siteUrlInHtml()],
 })

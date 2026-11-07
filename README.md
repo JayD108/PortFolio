@@ -6,7 +6,7 @@ My portfolio, told as a noir comic. Built with Vite, React and Tailwind.
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173/PortFolio/
+npm run dev      # http://localhost:5173/
 npm run build    # outputs to dist/
 ```
 

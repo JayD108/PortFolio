@@ -31,6 +31,11 @@ export function Cover() {
           <div className="mt-5 grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-12">
             <div className="grid min-w-0 gap-3">
               <p className="text-base font-medium text-fog sm:text-lg">{person.role}</p>
+              <p className="flex w-fit flex-wrap items-center gap-x-2 gap-y-0.5 border-2 border-[#3fbf6f] bg-[#0f2a1b] px-3 py-1.5 text-sm font-semibold text-[#c9f5d8]">
+                <span aria-hidden="true" className="open-dot size-2.5 shrink-0 rounded-full bg-[#3fbf6f]" />
+                <span>Open to {person.openTo}</span>
+                <span className="font-normal text-[#9fdcb6]">· {person.availability}</span>
+              </p>
               <Caption className="-rotate-1 px-3 py-1.5 text-base sm:text-lg">{person.tagline}</Caption>
               <ul aria-label="Top skills" className="flex flex-wrap gap-2 pt-1">
                 {person.topSkills.map((skill) => (

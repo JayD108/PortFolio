@@ -308,3 +308,20 @@ body {
     will-change: auto;
   }
 }
+
+/* Gentle pulse on the "Open to" status dot. */
+.open-dot {
+  box-shadow: 0 0 0 0 rgb(63 191 111 / 0.6);
+  animation: open-pulse 2s ease-out infinite;
+}
+
+@keyframes open-pulse {
+  70% { box-shadow: 0 0 0 7px rgb(63 191 111 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(63 191 111 / 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .open-dot {
+    animation: none;
+  }
+}
