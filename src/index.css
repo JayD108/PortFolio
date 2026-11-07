@@ -158,9 +158,66 @@ body {
 }
 
 .sfx-host:hover .sfx,
-.sfx-host:focus-visible .sfx {
+.sfx-host:focus-visible .sfx,
+.sfx.sfx-show {
   opacity: 1;
   transform: rotate(-8deg) scale(1);
+}
+
+/* The jet flies in from the right, bobs while the pilot talks, then flies off to the left. */
+.jet-in {
+  animation: jet-in 1.4s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.jet-in .jet-art {
+  animation: jet-bob 2.4s ease-in-out 1.4s infinite;
+}
+
+.jet-out {
+  animation: jet-out 0.9s cubic-bezier(0.6, 0, 0.9, 0.4) both;
+}
+
+.jet-flame {
+  transform-origin: 174px 46px;
+  animation: jet-flame 0.18s steps(2) infinite;
+}
+
+.jet-bubble::before {
+  content: "";
+  position: absolute;
+  right: 5.5rem;
+  top: -14px;
+  width: 20px;
+  height: 12px;
+  background: #000;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.end-note {
+  animation: end-note-in 400ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes jet-in {
+  from { transform: translateX(calc(100vw + 100%)); }
+  to { transform: translateX(0); }
+}
+
+@keyframes jet-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100vw - 100%)); }
+}
+
+@keyframes jet-bob {
+  50% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes jet-flame {
+  to { transform: scaleX(0.6); }
+}
+
+@keyframes end-note-in {
+  from { transform: translateY(24px) rotate(-1deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
 }
 
 .parallax {
@@ -213,6 +270,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* The jet and the end note simply appear and disappear, with no flight or slide. */
+  .jet-in,
+  .jet-in .jet-art,
+  .jet-out,
+  .jet-flame,
+  .end-note {
+    animation: none;
   }
 
   .reveal,

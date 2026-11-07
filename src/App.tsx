@@ -1,6 +1,7 @@
 import { CaseFiles } from './components/CaseFiles'
 import { ComicFooter, Mission, SideQuests, Signal } from './components/ClosingChapters'
 import { Cover } from './components/Cover'
+import { Encounters } from './components/Encounters'
 import { Introduction } from './components/Introduction'
 import { TopNav } from './components/TopNav'
 import { TrainingArc } from './components/TrainingArc'
@@ -22,6 +23,7 @@ export default function App() {
         <Signal />
         <ComicFooter />
       </main>
+      <Encounters />
     </>
   )
 }

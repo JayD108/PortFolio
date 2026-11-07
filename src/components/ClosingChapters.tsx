@@ -3,6 +3,8 @@ import { links, person, socials } from '../content/site'
 import { CityScene } from './CityScene'
 import { ChapterHeader, Reveal, Sfx, Todo } from './Comic'
 import { Emblem } from './Emblem'
+import { useState } from 'react'
+import { copyText } from './copyText'
 import { MailIcon, SocialIcon } from './SocialIcon'
 
 /** Small original icons for the Mission and Side Quests panels. Decorative only. */
@@ -99,6 +101,40 @@ export function SideQuests() {
   )
 }
 
+function CopyEmailButton() {
+  const [copied, setCopied] = useState<boolean | null>(null)
+
+  const copy = async () => {
+    const ok = await copyText(links.email)
+    if (!ok) {
+      // The browser blocked copying, so select the address for the reader to copy themselves.
+      const address = document.querySelector('#signal a[href^="mailto:"] span')
+      const selection = window.getSelection()
+      if (address && selection) {
+        const range = document.createRange()
+        range.selectNodeContents(address)
+        selection.removeAllRanges()
+        selection.addRange(range)
+      }
+    }
+    setCopied(ok)
+    window.setTimeout(() => setCopied(null), 2200)
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      aria-label={`Copy email address ${links.email}`}
+      className="relative shrink-0 rounded-sm border-2 border-paper bg-ink px-3 text-sm font-semibold text-paper hover:border-signal hover:text-signal"
+    >
+      {copied === null ? 'Copy' : copied ? 'Copied' : 'Selected'}
+      <span aria-hidden="true" className={`sfx comic-heading -right-3 -top-5 text-base ${copied ? 'sfx-show' : ''}`}>COPIED!</span>
+      <span role="status" className="sr-only">{copied === null ? '' : copied ? 'Email copied' : 'Email address selected'}</span>
+    </button>
+  )
+}
+
 export function Signal() {
   return (
     <section id="signal" aria-labelledby="signal-title" className="mx-auto grid max-w-7xl gap-6 px-3 py-12 sm:px-4 md:py-16">
@@ -119,13 +155,16 @@ export function Signal() {
 
         <div className="relative grid items-center gap-6 px-4 pb-28 pt-6 sm:px-7 md:grid-cols-2 md:pb-40 md:pt-10">
           <div className="order-2 grid gap-4 md:order-1">
-            <a
-              href={`mailto:${links.email}`}
-              className="flex min-h-12 min-w-0 items-center gap-3 rounded-sm border-2 border-paper bg-ink px-4 py-2.5 font-semibold text-paper hover:border-signal hover:text-signal"
-            >
-              <MailIcon className="size-6 shrink-0" />
-              <span className="min-w-0 break-all text-sm sm:text-base">{links.email}</span>
-            </a>
+            <div className="flex min-w-0 items-stretch gap-2.5">
+              <a
+                href={`mailto:${links.email}`}
+                className="flex min-h-12 min-w-0 flex-1 items-center gap-3 rounded-sm border-2 border-paper bg-ink px-4 py-2.5 font-semibold text-paper hover:border-signal hover:text-signal"
+              >
+                <MailIcon className="size-6 shrink-0" />
+                <span className="min-w-0 break-all text-sm sm:text-base">{links.email}</span>
+              </a>
+              <CopyEmailButton />
+            </div>
             <ul aria-label={`${person.name} online`} className="grid grid-cols-3 gap-2.5 min-[420px]:grid-cols-5">
               {socials.map((social) => (
                 <li key={social.id}>
