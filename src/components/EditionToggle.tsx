@@ -31,7 +31,7 @@ export function EditionToggle() {
       aria-pressed={day}
       aria-label="Daylight edition"
       title={day ? 'Switch to the night edition' : 'Switch to the daylight edition'}
-      className="grid size-10 shrink-0 place-items-center rounded-sm border border-slate text-fog hover:border-signal hover:text-signal"
+      className="grid size-11 shrink-0 place-items-center rounded-sm border border-slate text-fog hover:border-signal hover:text-signal"
     >
       {day ? (
         <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

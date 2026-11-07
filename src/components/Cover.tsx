@@ -1,19 +1,16 @@
 import { useState } from 'react'
-import { coverTeasers, issue, links, person, serviceRecord } from '../content/site'
+import { academics, currently, issue, links, person } from '../content/site'
+import { stats } from '../content/stats'
 import { CityScene } from './CityScene'
-import { Caption, Sfx } from './Comic'
+import { Caption } from './Comic'
 import { describe, useLiveWeather } from './liveWeather'
+
+const datasetHref = 'https://huggingface.co/datasets/JayF14/chb-mit-preprocessed-eeg'
 
 const [firstName, ...rest] = person.name.split(' ')
 const lastName = rest.join(' ')
 
-// College, graduation year and CGPA come from the Service Record, so the cover and the record can't disagree.
-const record = Object.fromEntries(serviceRecord.map((row) => [row.label, row.value ?? '']))
-
-// Each teaser panel sits at its own slight angle and offset, like panels pasted onto the page.
-const teaserTilt = ['md:-rotate-2', 'md:rotate-1 md:-translate-x-5', 'md:-rotate-1']
-
-/** Issue #1 cover: name, role and skills, three project teasers, and the resume in the corner. */
+/** Cover: name, study background, the dataset highlight, the resume and email. Nothing else on the first screen. */
 export function Cover() {
   const weather = useLiveWeather()
   // Between 11 PM and 4 AM in the visitor's own time, the cover greets fellow night owls.
@@ -21,109 +18,95 @@ export function Cover() {
     const hour = new Date().getHours()
     return hour >= 23 || hour < 4
   })
+
   return (
-    <section id="cover" aria-labelledby="cover-name" className="mx-auto max-w-7xl p-2 sm:p-3">
+    <section id="cover" aria-labelledby="cover-name" className="mx-auto max-w-7xl p-1 sm:p-3">
       <div className="night-scene panel-frame relative isolate overflow-hidden bg-ink">
         <CityScene />
 
-        {/* Bottom padding leaves room for the skyline and the corner Resume box. Kept tight so the box stays on the first screen. */}
-        <div className="relative px-4 pb-24 pt-3 sm:px-7 md:pb-24">
-          <p className="w-fit border-2 border-black bg-cream px-2 py-1 text-[0.6875rem] font-bold uppercase text-night sm:px-2.5 sm:text-xs sm:tracking-wide">
-            Issue {issue.number} · {issue.date} · {issue.city}
-          </p>
-
-          <h1
-            id="cover-name"
-            className="comic-heading masthead mt-2 text-[clamp(3rem,17vw,6.5rem)] uppercase md:text-[clamp(4rem,min(11.5vw,22vh),10.5rem)]"
-          >
-            <span className="block whitespace-nowrap md:inline">{firstName} </span>
-            <span className="block whitespace-nowrap md:inline">{lastName}</span>
-          </h1>
-
-          <div className="mt-5 grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-12">
-            <div className="grid min-w-0 gap-3">
-              <div className="grid gap-0.5">
-                <p className="text-base font-medium text-fog sm:text-lg">{person.role}</p>
-                <p className="text-sm font-semibold text-paper sm:text-base">
-                  {record.College} · Class of {record.Graduation} · CGPA {record.CGPA}
-                </p>
-              </div>
-              <p className="flex w-fit flex-wrap items-center gap-x-2 gap-y-0.5 border-2 border-[#3fbf6f] bg-[#0f2a1b] px-3 py-1.5 text-sm font-semibold text-[#c9f5d8]">
-                <span aria-hidden="true" className="open-dot size-2.5 shrink-0 rounded-full bg-[#3fbf6f]" />
-                <span>Open to {person.openTo}</span>
-                <span className="font-normal text-[#9fdcb6]">· {person.availability}</span>
+        <div className="relative grid gap-6 px-4 pb-24 pt-4 sm:px-7 md:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] md:items-end md:gap-10 md:pb-40 md:pt-6">
+          <div className="grid min-w-0 content-start gap-4">
+            <p className="w-fit border-2 border-black bg-cream px-2 py-1 text-xs font-bold uppercase text-night">
+              Issue {issue.number} · {issue.date}
+            </p>
+            <h1 id="cover-name" className="comic-heading masthead text-[clamp(3.25rem,16vw,6rem)] uppercase md:text-[clamp(4.5rem,9vw,9rem)]">
+              <span className="block">{firstName}</span>
+              <span className="block">{lastName}</span>
+            </h1>
+            <Caption className="hidden -rotate-1 px-3 py-1.5 text-lg sm:block">{person.tagline}</Caption>
+            {lateNight && (
+              <p className="hidden w-fit rotate-1 border-2 border-black bg-cream px-3 py-1 text-sm font-semibold text-night shadow-[3px_3px_0_#000] sm:block">
+                Working late too, detective? Same here.
               </p>
-              <Caption className="-rotate-1 px-3 py-1.5 text-base sm:text-lg">{person.tagline}</Caption>
-              {lateNight && (
-                <p className="w-fit rotate-1 border-2 border-black bg-cream px-3 py-1 text-sm font-semibold text-night shadow-[3px_3px_0_#000]">
-                  Working late too, detective? Same here.
-                </p>
-              )}
-              <ul aria-label="Top skills" className="flex flex-wrap gap-2 pt-1">
-                {person.topSkills.map((skill) => (
-                  <li key={skill} className="border border-slate bg-gunmetal px-2.5 py-1 text-sm font-medium text-paper">
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-              <div className="pt-3">
-                <a
-                  href="#intro"
-                  className="sfx-host relative inline-flex min-h-11 items-center rounded-sm border-2 border-black bg-signal px-5 text-base font-bold text-night shadow-[4px_4px_0_#000] hover:bg-cream"
-                >
-                  {issue.openLabel}
-                  <Sfx className="-right-4 -top-5 text-lg">BOOT!</Sfx>
-                </a>
-              </div>
+            )}
+          </div>
+
+          {/* About me: the essentials a recruiter looks for first. */}
+          <div aria-label="About me" role="group" className="grid gap-4 border-[3px] border-black bg-gunmetal/95 p-4 shadow-[5px_5px_0_#000] sm:p-5">
+            <div className="grid gap-1">
+              <p className="text-lg font-bold leading-snug text-paper">
+                {academics.degree} · {academics.honors}
+              </p>
+              <p className="text-base text-fog">
+                {academics.college} · Class of {academics.classOf}
+              </p>
             </div>
 
-            <nav aria-label="Featured case files">
-              <ul className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-1 md:gap-4">
-                {coverTeasers.map((teaser, index) => (
-                  <li key={teaser.caseId}>
-                    <a
-                      href={`#case-${teaser.caseId}`}
-                      className={`teaser story-panel sfx-host panel-frame relative grid h-full gap-1 bg-gunmetal p-2.5 text-left sm:p-3 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-x-4 md:p-4 ${teaserTilt[index]}`}
-                    >
-                      <span className="halftone pointer-events-none absolute inset-0" aria-hidden="true" />
-                      <span className="caption-box relative w-fit whitespace-nowrap px-1.5 py-0.5 text-[0.625rem] font-bold uppercase sm:text-[0.6875rem] md:col-span-2 md:text-xs">
-                        {teaser.title}
-                      </span>
-                      <span className="comic-heading relative whitespace-nowrap text-2xl leading-none text-signal sm:text-4xl md:text-5xl">{teaser.number}</span>
-                      <span className="relative hidden text-sm leading-snug text-paper sm:block">{teaser.label}</span>
-                      <Sfx className="-right-2 -top-4 text-base">CASE!</Sfx>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            {/* The highlight: real people downloading my public dataset. Grades live in the About section. */}
+            <a
+              href={datasetHref}
+              className="group grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 border-2 border-black bg-signal px-3 py-2 text-night shadow-[3px_3px_0_#000] hover:bg-cream"
+            >
+              <span className="comic-heading row-span-2 text-5xl leading-none">{stats.dataset.downloads.toLocaleString('en-US')}</span>
+              <span className="text-sm font-bold uppercase tracking-wide">downloads on Hugging Face</span>
+              <span className="text-sm font-medium leading-snug group-hover:underline">
+                My preprocessed EEG dataset<span aria-hidden="true"> ↗</span>
+              </span>
+            </a>
+            {academics.sgpa && <p className="text-base font-semibold text-paper">SGPA {academics.sgpa}</p>}
+
+            <div className="grid grid-cols-2 gap-2">
+              <a
+                href={`${import.meta.env.BASE_URL}${links.resume}`}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-sm border-2 border-black bg-signal px-4 text-base font-bold text-night shadow-[3px_3px_0_#000] hover:bg-cream"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path d="M6 2.5h8l4.5 4.5v14.5H6Z" />
+                  <path d="M14 2.5V7h4.5M9 12h6M9 15.5h6M9 19h4" />
+                </svg>
+                Resume
+                <span className="sr-only">(PDF, 1 page)</span>
+              </a>
+              <a
+                href={`mailto:${links.email}`}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-sm border-2 border-paper bg-ink px-3 text-base font-bold text-paper hover:border-signal hover:text-signal"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
+                  <path d="M3.5 6.5h17v11h-17Z" />
+                  <path d="m4 7 8 6 8-6" />
+                </svg>
+                Email
+              </a>
+            </div>
+
+            <p className="flex items-baseline gap-2 text-base font-semibold leading-snug text-[#c9f5d8]">
+              <span aria-hidden="true" className="open-dot relative top-[-1px] size-2.5 shrink-0 rounded-full bg-[#3fbf6f]" />
+              <span>Open to {person.openTo}</span>
+            </p>
+            <p className="border-t border-slate pt-3 text-base leading-snug text-paper">
+              <span className="font-bold text-signal">Currently: </span>
+              {currently}
+            </p>
           </div>
         </div>
-
-        <a
-          href={`${import.meta.env.BASE_URL}${links.resume}`}
-          className="sfx-host absolute bottom-4 right-4 z-10 flex -rotate-3 items-center gap-2 border-[3px] border-black bg-cream px-4 py-2.5 text-night shadow-[5px_5px_0_#000] hover:rotate-0 hover:bg-signal sm:bottom-6 sm:right-6"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6" fill="none" stroke="currentColor" strokeWidth="2.2">
-            <path d="M6 2.5h8l4.5 4.5v14.5H6Z" />
-            <path d="M14 2.5V7h4.5M9 12h6M9 15.5h6M9 19h4" />
-          </svg>
-          <span className="grid leading-none">
-            <span className="comic-heading text-2xl">Resume</span>
-            <span className="text-[0.6875rem] font-bold uppercase tracking-wide">PDF · 1 page</span>
-          </span>
-          <Sfx className="-left-5 -top-5 text-base">GRAB!</Sfx>
-        </a>
 
         {weather && (
           <a
             href="#case-varuna"
-            className="absolute bottom-4 left-4 z-10 hidden max-w-[16rem] items-center gap-2 border border-slate bg-ink/85 px-2.5 py-1.5 text-xs leading-snug text-fog hover:border-signal hover:text-paper min-[480px]:flex sm:bottom-6 sm:left-6"
+            className="absolute bottom-4 left-4 z-10 hidden max-w-[16rem] items-center gap-2 border border-slate bg-ink/85 px-2.5 py-1.5 text-xs leading-snug text-fog hover:border-signal hover:text-paper md:flex"
           >
             <span aria-hidden="true" className="text-base leading-none">{weather.mmPerHour > 0 ? '☂' : '☁'}</span>
-            <span>
-              Live over Dehradun: {describe(weather)}. The rain here follows it, a nod to VARUNA.
-            </span>
+            <span>Live over Dehradun: {describe(weather)}. The rain here follows it, a nod to VARUNA.</span>
           </a>
         )}
       </div>

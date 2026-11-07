@@ -1,6 +1,6 @@
-import type { PouchIcon as IconName } from '../content/training'
+import type { TrackId as IconName } from '../content/training'
 
-/** Small original gadget icons for the Training Arc pouches. Decorative only. */
+/** Small original gadget icons for the skill tracks. Decorative only. */
 export function PouchIcon({ name }: { name: IconName }) {
   return (
     <svg
@@ -16,18 +16,6 @@ export function PouchIcon({ name }: { name: IconName }) {
         <>
           <path d="M7 8h34v13H7ZM7 27h34v13H7Z" />
           <path d="M14 14.5h.1M14 33.5h.1M24 14.5h10M24 33.5h10" />
-        </>
-      )}
-      {name === 'dsa' && (
-        <>
-          <path d="M24 13v8M24 21 11 32M24 21l13 11" />
-          <path d="M19 4h10v9H19ZM6 32h10v10H6ZM32 32h10v10H32Z" />
-        </>
-      )}
-      {name === 'core' && (
-        <>
-          <path d="M13 13h22v22H13Z" />
-          <path d="M20 20h8v8h-8ZM20 6v7M28 6v7M20 35v7M28 35v7M6 20h7M6 28h7M35 20h7M35 28h7" />
         </>
       )}
       {name === 'ai' && (

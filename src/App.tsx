@@ -1,5 +1,7 @@
+import { ActivityStrip } from './components/ActivityStrip'
 import { CaseFiles } from './components/CaseFiles'
-import { ComicFooter, Mission, SideQuests, Signal } from './components/ClosingChapters'
+import { Certifications } from './components/Certifications'
+import { ComicFooter, SideQuests, Signal } from './components/ClosingChapters'
 import { Cover } from './components/Cover'
 import { Encounters } from './components/Encounters'
 import { Extras } from './components/Extras'
@@ -18,10 +20,11 @@ export default function App() {
       <TopNav />
       <main>
         <Cover />
+        <ActivityStrip />
         <Introduction />
         <TrainingArc />
         <CaseFiles />
-        <Mission />
+        <Certifications />
         <SideQuests />
         <Signal />
         <ComicFooter />

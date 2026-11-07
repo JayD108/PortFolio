@@ -3,5 +3,7 @@
 
 export const stats = {
   updated: '2026-11-07',
-  dataset: { downloads: 407, likes: 5 },
+  dataset: { downloads: 433, likes: 5 },
+  huggingFace: { likes: 12, repos: 5 },
+  github: { publicRepos: 16, commits90d: 200 },
 }

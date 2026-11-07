@@ -1,72 +1,48 @@
-// Training Arc copy.
-// To change a skill's label, set status to 'battle-tested' or 'in-training'.
+// Skills: one layout, three tracks. On a phone only one track shows at a time, as tabs.
+// `used` = proven in projects I've built. `learning` = what I'm learning now. Either list may be empty.
 
-export type SkillStatus = 'battle-tested' | 'in-training'
-export type PouchIcon = 'backend' | 'dsa' | 'core' | 'ai' | 'fintech'
+export type TrackId = 'fintech' | 'backend' | 'ai'
 
-export type Pouch = {
-  id: PouchIcon
+export type Track = {
+  id: TrackId
   title: string
-  status: SkillStatus
-  items: string[]
-  note: string
-  todo?: string
+  /** One short line under the title. */
+  line: string
+  used: string[]
+  learning: string[]
   sfx: string
-}
-
-export const statusLabels: Record<SkillStatus, string> = {
-  'battle-tested': 'Battle-tested',
-  'in-training': 'In training',
 }
 
 export const training = {
   chapter: 'Chapter 2',
-  title: 'The Training Arc',
-  narration: 'Every case needs the right gear. Some of mine has been proven in the field. The rest is still in training, and it says so.',
-  legend: [
-    { status: 'battle-tested', meaning: "Used in projects I've built" },
-    { status: 'in-training', meaning: "What I'm learning now" },
-  ] satisfies { status: SkillStatus; meaning: string }[],
-  pouches: [
-    {
-      id: 'backend',
-      title: 'Backend',
-      status: 'in-training',
-      items: ['Java', 'Backend development'],
-      note: 'Practice so far includes an inventory system and a multi-threaded CSV processor.',
-      sfx: 'COMPILE!',
-    },
-    {
-      id: 'dsa',
-      title: 'Problem Solving',
-      status: 'in-training',
-      items: ['C++', 'Data structures', 'Algorithms'],
-      note: 'Practising data structures and algorithms in C++.',
-      sfx: 'SEGFAULT!',
-    },
-    {
-      id: 'core',
-      title: 'Core CS',
-      status: 'in-training',
-      items: ['OOP', 'Computer Networks', 'Operating Systems', 'DBMS'],
-      note: 'The fundamentals behind secure systems.',
-      sfx: 'PING!',
-    },
-    {
-      id: 'ai',
-      title: 'AI / ML',
-      status: 'battle-tested',
-      items: ['Python', 'PyTorch', 'Transformers', 'U-Nets', 'XGBoost', 'LightGBM'],
-      note: 'Used in MONA, VARUNA, MANAS and APALA.',
-      sfx: 'TRAIN!',
-    },
+  title: 'Skills',
+  narration: 'Three tracks. What I have used in real projects, and what is still in training.',
+  usedLabel: 'Used in projects',
+  learningLabel: 'Learning now',
+  tracks: [
     {
       id: 'fintech',
       title: 'Fintech',
-      status: 'in-training',
-      items: ['Fintech Honors', 'AI in Fintech'],
-      note: 'I completed AI in Fintech this semester, one of six subjects in my Honors course.',
+      line: 'Honors specialisation. I completed AI in Fintech this semester.',
+      used: [],
+      learning: ['Fintech Honors', 'AI in Fintech', 'FP&A + AI', 'UPI-style payments (Mini-UPI)'],
       sfx: 'KA-CHING!',
     },
-  ] as Pouch[],
+    {
+      id: 'backend',
+      title: 'Backend',
+      line: 'APIs and real-time services, with the CS fundamentals underneath.',
+      used: ['FastAPI', 'WebSockets', 'Firebase'],
+      learning: ['Java', 'Spring Boot', 'REST APIs', 'JWT', 'DSA in C++', 'OOP', 'Computer Networks', 'Operating Systems', 'DBMS'],
+      sfx: 'COMPILE!',
+    },
+    {
+      id: 'ai',
+      title: 'AI & ML',
+      line: 'Used in MONA, VARUNA, MANAS and APALA.',
+      used: ['Python', 'PyTorch', 'Transformers', 'U-Nets', 'XGBoost', 'LightGBM'],
+      learning: [],
+      sfx: 'TRAIN!',
+    },
+  ] satisfies Track[],
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { isLite } from './effects'
 
 /** Yellow narration box. */
 export function Caption({ children, className = '' }: { children: ReactNode; className?: string }) {
@@ -47,12 +48,12 @@ type RevealProps = {
 
 /**
  * Fades its content in the first time it scrolls into view.
- * Content stays visible if the browser can't observe scrolling or the visitor prefers reduced motion.
+ * Content stays visible if the browser can't observe scrolling, or effects are light (phones, reduced motion, low power).
  */
 export function Reveal({ children, className = '' }: RevealProps) {
   const element = useRef<HTMLDivElement>(null)
   const [pending, setPending] = useState(
-    () => 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => 'IntersectionObserver' in window && !isLite(),
   )
 
   useEffect(() => {

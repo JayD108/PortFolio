@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import type { Evidence as EvidenceBlock, SeriesColor, Tip } from '../content/cases'
+import { useCanHover } from './effects'
 
 const color = (name: SeriesColor) => `var(--color-${name})`
 
@@ -41,7 +42,11 @@ function Legend({ items }: { items: { label: string; color: SeriesColor }[] }) {
 
 function Bars({ block }: { block: Extract<EvidenceBlock, { type: 'bars' }> }) {
   const [tip, setTip] = useState<TipState>(null)
-  const show = (value: Tip, event: React.PointerEvent) => setTip({ ...value, x: event.clientX, y: event.clientY })
+  // Touch screens can't hover, so they get each bar's details printed under it instead of a tooltip.
+  const canHover = useCanHover()
+  const show = (value: Tip, event: React.PointerEvent) => {
+    if (canHover && event.pointerType === 'mouse') setTip({ ...value, x: event.clientX, y: event.clientY })
+  }
 
   return (
     <figure className="m-0 grid grid-cols-[minmax(0,1fr)] gap-3">
@@ -66,6 +71,11 @@ function Bars({ block }: { block: Extract<EvidenceBlock, { type: 'bars' }> }) {
               )}
             </div>
             <span className="text-right text-sm font-medium tabular-nums text-paper">{row.display}</span>
+            {!canHover && (
+              <span className="col-span-2 text-xs leading-snug text-fog">
+                {row.tip.rows.map(([key, value]) => `${key} ${value}`).join(' · ')}
+              </span>
+            )}
           </div>
         ))}
         <div aria-hidden="true" className="grid grid-cols-[minmax(0,1fr)_3.2em] gap-x-2.5 text-xs text-fog">
@@ -86,6 +96,7 @@ function Lines({ block }: { block: Extract<EvidenceBlock, { type: 'lines' }> }) 
   const box = useRef<HTMLDivElement>(null)
   const [width, setWidth] = useState(520)
   const [hover, setHover] = useState<{ index: number; x: number; y: number } | null>(null)
+  const canHover = useCanHover()
 
   useLayoutEffect(() => {
     if (!box.current) return
@@ -106,6 +117,7 @@ function Lines({ block }: { block: Extract<EvidenceBlock, { type: 'lines' }> }) 
   const sy = (value: number) => margin.top + innerHeight - (value / block.y.max) * innerHeight
 
   const onMove = (event: React.PointerEvent) => {
+    if (!canHover || event.pointerType !== 'mouse') return
     const rect = box.current!.getBoundingClientRect()
     const px = event.clientX - rect.left
     let index = 0
@@ -168,6 +180,36 @@ function Lines({ block }: { block: Extract<EvidenceBlock, { type: 'lines' }> }) 
           })}
         </svg>
       </div>
+      {/* Touch screens get every value written out, since there is no hover. */}
+      {!canHover && (
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={`${block.title}: values`}>
+          <table className="w-full border-collapse text-sm tabular-nums">
+            <thead>
+              <tr>
+                <th scope="col" className="border-b-2 border-slate py-1 pr-3 text-left text-xs font-semibold text-fog">Point</th>
+                {block.series.map((s) => (
+                  <th key={s.name} scope="col" className="border-b-2 border-slate py-1 pr-3 text-left text-xs font-semibold text-fog">
+                    <span aria-hidden="true" className="mr-1 inline-block size-2 rounded-[2px]" style={{ background: color(s.color) }} />
+                    {s.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.x.tipTitles.map((title, i) => (
+                <tr key={title}>
+                  <td className="whitespace-nowrap border-b border-slate py-1 pr-3 text-fog">{title}</td>
+                  {block.series.map((s) => (
+                    <td key={s.name} className="whitespace-nowrap border-b border-slate py-1 pr-3 text-paper">
+                      {s.tips ? s.tips[i] : `${s.values[i].toFixed(block.digits)}${block.y.unit}`}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       {block.note && <p className="text-sm leading-relaxed text-fog">{block.note}</p>}
       <Tooltip
         tip={

@@ -13,8 +13,24 @@ export const person = {
 export const links = {
   // The PDF lives in public/. Replace that file to update your resume.
   resume: 'Mrittunjay_Dubey_Resume.pdf',
+  // Public contact address, shown in Contact and the sticky phone bar. Change it here only.
   email: 'mrittunjaydubey3@gmail.com',
 }
+
+// The essentials on the cover and the About card. Leave a value as '' to hide it until it's ready.
+export const academics = {
+  degree: 'B.Tech CSE',
+  honors: 'Fintech Honors',
+  college: 'SRM IST',
+  collegeFull: 'SRM Institute of Science and Technology',
+  classOf: '2028',
+  // TODO: add your SGPA (for example the latest semester's). It stays hidden while empty.
+  sgpa: '',
+  cgpa: '9.85',
+}
+
+// The one-line "Currently" note. Keep it short: what you're building or learning right now.
+export const currently = 'Building Mini-UPI, a UPI-style payments backend in Java and Spring Boot, and practising DSA in C++.'
 
 export type SocialId = 'github' | 'linkedin' | 'huggingface' | 'reddit' | 'steam'
 
@@ -34,21 +50,17 @@ export const issue = {
   openLabel: 'Open the comic',
 }
 
-// Teaser panels on the cover. `caseId` must match an id in cases.ts; clicking jumps to that case file.
-export const coverTeasers = [
-  { caseId: 'mona', title: 'MONA', number: '110M', label: 'parameter language model, built from scratch' },
-  { caseId: 'varuna', title: 'VARUNA', number: '190 GB', label: 'of weather data fused to forecast cloudbursts' },
-  { caseId: 'apala-v2', title: 'APALA v2', number: '624', label: 'fold trainings in a leakage-controlled EEG benchmark' },
-]
 
+// The menu: at most five items, so it fits a phone's bottom bar. `id` is the section it jumps to.
 export const chapters = [
-  { id: 'intro', label: 'Intro' },
-  { id: 'training', label: 'Training Arc' },
-  { id: 'cases', label: 'Case Files' },
-  { id: 'mission', label: 'Mission' },
-  { id: 'side-quests', label: 'Side Quests' },
-  { id: 'signal', label: 'Signal' },
-]
+  { id: 'intro', label: 'About' },
+  { id: 'training', label: 'Skills' },
+  { id: 'cases', label: 'Projects' },
+  { id: 'side-quests', label: 'Awards' },
+  { id: 'signal', label: 'Contact' },
+] as const
+
+export type ChapterId = (typeof chapters)[number]['id']
 
 export type RecordRow = { label: string; value: string | null; todo?: string }
 

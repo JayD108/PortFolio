@@ -1,11 +1,13 @@
 import { stats } from './stats'
 
-// Case Files data.
+// Projects data.
 //
-// To add a case: copy any entry in `cases`, change its fields, and save.
-// It appears automatically under the category you set ('ai' or 'dev').
-// `evidence` is optional. Leave it out and the card has no "View evidence" button.
-// Pick evidence blocks from the Evidence type below: charts, tables, facts, lists, images, code.
+// Every project sits in one "Projects" folder. A card shows `summary`, then `problemLine` and
+// `resultLine` (one short line each). Everything else (the full problem, result, limits and evidence)
+// sits behind "Read more".
+//
+// To add a project: copy any entry in `cases`, change its fields, and add its id to `projectOrder`.
+// `evidence` is optional. Pick evidence blocks from the Evidence type below: charts, tables, facts, lists, images, code.
 
 export type SeriesColor = 's1' | 's2' | 's3'
 
@@ -40,13 +42,26 @@ export type Evidence =
   | { type: 'verse'; label: string; lines: string[] }
   | { type: 'text'; title: string; paragraphs: string[] }
 
-export type CaseCategory = 'ai' | 'dev'
+export type CaseCategory = 'ai' | 'dev' | 'fintech'
 
 export type CaseFile = {
   id: string
   category: CaseCategory
   title: string
   domain: string
+  /** One line under the title, shown on the closed card. */
+  summary: string
+  /** One short line each, shown on the card. Leave out to hide. */
+  problemLine?: string
+  resultLine?: string
+  /** Shows an "In progress" stamp. */
+  inProgress?: boolean
+  /**
+   * A dated build log, newest first. The newest entry shows on the card; the rest sit behind "Read more".
+   * Add a line whenever something real works, e.g. { date: 'Nov 2026', text: 'Payer and payee banks talk over REST.' }
+   */
+  log?: { date: string; text: string }[]
+  /** The full write-up behind "Read more". Leave '' when the summary says it all. */
   problem: string
   /** Heading above `problem`. Defaults to "The problem"; set it when the text is a description instead. */
   problemLabel?: string
@@ -60,13 +75,22 @@ export type CaseFile = {
 
 export const caseFilesCopy = {
   chapter: 'Chapter 3',
-  title: 'Case Files',
-  narration: "Every case on record, with the evidence attached and the limits stated. Pick the files you came for.",
-  categories: [
-    { id: 'ai', label: 'AI & ML', description: 'Models, research and datasets' },
-    { id: 'dev', label: 'Development', description: 'Web, Android and backend projects' },
-  ] satisfies { id: CaseCategory; label: string; description: string }[],
+  title: 'Projects',
+  narration: 'Two headline cases first. The rest of the files are in the folder, with the evidence attached and the limits stated.',
+  featuredLabel: 'Featured',
+  moreTitle: 'More projects',
+  folderLabel: 'Case file',
+  openLabel: 'Open the file',
+  closeLabel: 'Close the file',
+  readMore: 'Read more',
+  readLess: 'Show less',
 }
+
+// Shown open at the top of Projects. Everything else sits in the "More projects" folder below.
+export const featuredProjects = ['apala-v2', 'varuna']
+
+// The order cards appear in. Projects not listed here go at the end.
+export const projectOrder = ['mini-upi', 'apala-v2', 'mona', 'varuna', 'gatekeeper', 'apala-dashboard', 'chb-mit-dataset', 'apala-v1', 'manas', 'gods-eye', 'triangle', 'java-projects']
 
 const github = 'https://github.com/JayD108'
 const hf = 'https://huggingface.co/JayF14'
@@ -77,10 +101,51 @@ const statsLine = `${stats.dataset.downloads.toLocaleString('en-US')} downloads 
 
 export const cases: CaseFile[] = [
   {
+    id: 'mini-upi',
+    category: 'fintech',
+    title: 'Mini-UPI',
+    domain: 'Java backend · fintech',
+    summary: "A small working copy of India's UPI payment system, built to learn backend and fintech engineering.",
+    problemLine: 'How does money move safely from name@bank to name@bank, even when a step fails?',
+    resultLine: 'Four Spring Boot services, a PSP app, a switch and two banks, laid out the way real UPI is.',
+    inProgress: true,
+    log: [
+      { date: 'Nov 2026', text: 'Designed the system: four services (PSP app, switch, payer bank, payee bank), the transfer rules and the ledger.' },
+    ],
+    problemLabel: 'What it is',
+    problem:
+      "A user sends money from their app to someone's name@bank address, and the request travels through the same parts real UPI uses: the payment app, a central switch (like NPCI), and the payer's and payee's banks.",
+    result:
+      'Each part is its own Spring Boot service, talking over REST APIs. Users have accounts with a VPA (the name@bank ID), a PIN check and JWT login. A transfer debits and credits inside one database transaction, so money is never taken without being received, and amounts are stored as whole paise, never decimals.',
+    limit: "Still being built. Settlement, reconciliation and QR code payments are on the way, and it's a learning project, not connected to any real bank or to NPCI.",
+    stack: ['Java', 'Spring Boot', 'REST APIs', 'JWT', 'Double-entry ledger', 'Idempotency'],
+    links: [],
+    evidence: [
+      {
+        type: 'list',
+        title: 'How it is designed',
+        items: [
+          { term: 'Four services', detail: 'PSP app (like PhonePe), switch, payer bank and payee bank, each a separate Spring Boot service' },
+          { term: 'Accounts and login', detail: 'A VPA (name@bank) per user, PIN check and JWT login' },
+          { term: 'Safe transfers', detail: 'Debit and credit in one database transaction; money kept as whole paise' },
+          { term: 'Ledger', detail: 'Double-entry bookkeeping: every debit has a matching credit' },
+          { term: 'Retries', detail: 'Idempotency keys, so a retried request never charges twice' },
+          { term: 'Timeouts', detail: 'Treated as "unknown", not "failed", with automatic reversals' },
+          { term: 'Status', detail: 'A state machine: pending, then success, failed or reversed' },
+          { term: 'Settlement', detail: 'Background jobs that settle between banks and reconcile both sides (in progress)' },
+          { term: 'History and QR', detail: 'Transaction history, with QR code payments planned' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'apala-v2',
     category: 'ai',
     title: 'APALA v2',
     domain: 'Medical signals',
+    summary: "A strict benchmark for cross-patient seizure forecasting from scalp EEG.",
+    problemLine: "Papers report 90–99% on CHB-MIT. Does it hold on unseen patients?",
+    resultLine: "No: 13.2% sensitivity, against 9.3% for a matched random alarm.",
     problem:
       'Can a network trained on other patients warn of a seizure 5–35 minutes ahead in a patient it has never seen? Accuracy of 90–99% is often reported on CHB-MIT, so I built a benchmark strict enough to find out.',
     result:
@@ -141,6 +206,9 @@ export const cases: CaseFile[] = [
     category: 'ai',
     title: 'APALA v1',
     domain: 'Medical signals',
+    summary: "My first seizure forecaster, formerly NeuroPulse.",
+    problemLine: "Spot the pre-seizure state in scalp EEG up to 30 minutes ahead.",
+    resultLine: "0.998 ROC-AUC on a known patient, 0.56 on unseen ones. That gap led to v2.",
     problem:
       'Forecast seizures from scalp EEG by spotting the pre-ictal state, up to 30 minutes before onset. Formerly NeuroPulse, this is the system that came first.',
     result:
@@ -196,6 +264,9 @@ export const cases: CaseFile[] = [
     category: 'ai',
     title: 'MONA',
     domain: 'Language models',
+    summary: "A 110M-parameter language model trained from scratch, plus an app that shows how it works.",
+    problemLine: "LLMs are hard to learn because you can rarely look inside one.",
+    resultLine: "Trained on one laptop GPU; a terminal app teaches with its real weights.",
     problem:
       'LLMs are hard to learn because you can rarely look inside one. I trained a 110M-parameter language model from scratch on one laptop GPU, then built a terminal app that teaches how LLMs work using its real weights.',
     result:
@@ -240,6 +311,9 @@ export const cases: CaseFile[] = [
     category: 'ai',
     title: 'VARUNA',
     domain: 'Extreme weather',
+    summary: "Forecasts cloudbursts, thunderstorms and flash floods over the Himalayas, 2–6 hours ahead.",
+    problemLine: "Himalayan cloudbursts and flash floods arrive with little warning.",
+    resultLine: "Over 80% holdout recall for all three hazards, though false alarms are common.",
     problem:
       'Forecast cloudbursts, thunderstorms and flash floods over the Himalayas, 2–6 hours ahead, by fusing atmospheric, satellite and terrain data in a 17.6M-parameter Hybrid TransUNet.',
     result:
@@ -305,6 +379,9 @@ export const cases: CaseFile[] = [
     category: 'ai',
     title: 'MANAS',
     domain: 'Language models',
+    summary: "A small transformer written from scratch for classical Awadhi verse.",
+    problemLine: "Can a small model learn Awadhi verse from raw characters?",
+    resultLine: "It learns the look of the verse, and starts memorizing after step 5,000.",
     problem:
       'Can a small transformer learn the patterns of classical Awadhi verse from raw characters? I wrote one from scratch in PyTorch with no pretrained weights and trained it on the poetry of Goswami Tulsidas.',
     result:
@@ -356,6 +433,9 @@ export const cases: CaseFile[] = [
     category: 'ai',
     title: 'CHB-MIT Preprocessed EEG',
     domain: 'Public dataset',
+    summary: "A ready-to-train, feature-engineered EEG dataset on Hugging Face.",
+    problemLine: "Raw EEG needs heavy signal processing before you can train on it.",
+    resultLine: `347,075 labelled windows, downloaded ${stats.dataset.downloads.toLocaleString('en-US')} times.`,
     problem:
       'Raw EEG takes heavy signal processing before you can train on it. This feature-engineered dataset for seizure forecasting is ready to use without any.',
     result: `347,075 labelled windows, with ${statsLine}.`,
@@ -378,6 +458,8 @@ export const cases: CaseFile[] = [
     category: 'ai',
     title: "God's Eye & StudyMind",
     domain: 'Local AI',
+    summary: "A local AI system that turns web data and course documents into knowledge graphs.",
+    problemLine: "Web data and course notes are unstructured and hard to explore.",
     problem: 'Web data and course documents are unstructured and hard to explore. This local AI system turns them into interactive knowledge graphs.',
     stack: ['FastAPI', 'Neo4j', 'Ollama'],
     links: [{ label: 'Code', href: `${github}/God-S-EYE-v2.0` }],
@@ -386,7 +468,11 @@ export const cases: CaseFile[] = [
     id: 'gatekeeper',
     category: 'dev',
     title: 'GateKeeper',
-    domain: 'Android app · in progress',
+    domain: 'Android app',
+    summary: "A two-phone gate alert app I'm building for my parents.",
+    problemLine: "My parents kept getting locked out at the gate.",
+    resultLine: "Designed to sound a full-screen alarm about 3 minutes before the commuter is home.",
+    inProgress: true,
     problem:
       'My parents kept getting locked out at the gate: one would arrive home while the other had forgotten to unlock it. A normal notification is easy to miss, and an early one is easy to forget.',
     result:
@@ -417,6 +503,9 @@ export const cases: CaseFile[] = [
     category: 'dev',
     title: 'APALA dashboard',
     domain: 'Full stack',
+    summary: "A real-time web monitor that streams seizure risk scores.",
+    problemLine: "A risk score only helps if someone can watch it.",
+    resultLine: "FastAPI and WebSockets stream each patient's score to a Next.js monitor.",
     problem: "A seizure risk score is only useful if someone can watch it. This real-time interface streams each patient's score to the screen, replaying recorded EEG.",
     result:
       'A FastAPI backend with 6 API endpoints streams scores over one WebSocket per patient to a Next.js frontend, with a patient monitor, a 10-20 electrode map, and pages for the dataset and methods.',
@@ -439,6 +528,7 @@ export const cases: CaseFile[] = [
     category: 'dev',
     title: 'TRIANGLE',
     domain: 'Web app',
+    summary: "A browser-based OSINT map of strategic chokepoints, with a council of 11 AI agents.",
     problemLabel: 'The brief',
     problem:
       'A browser-based open-source intelligence platform that maps strategic chokepoints and geopolitical developments, with a council of 11 AI agents answering queries, including one that checks the others’ work.',
@@ -450,6 +540,7 @@ export const cases: CaseFile[] = [
     category: 'dev',
     title: 'Java projects',
     domain: 'Desktop and backend practice',
+    summary: "Core Java practice: an inventory system, a multi-threaded CSV processor and a Swing calculator.",
     problemLabel: 'The brief',
     problem: 'Practice in core Java: an inventory management system, a multi-threaded CSV file processor and a Swing calculator.',
     stack: ['Java', 'Swing'],

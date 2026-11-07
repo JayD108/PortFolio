@@ -1,4 +1,4 @@
-# Refreshes the live numbers on the site (Hugging Face downloads and likes) every Monday.
+# Refreshes the live numbers on the site (Hugging Face downloads and likes, GitHub repos and commits) every Monday.
 # If they changed, it commits src/content/stats.ts, which triggers a new deploy.
 # The resume PDF is not rebuilt here: fonts on GitHub's servers differ from yours,
 # so run `npm run resume` on your own computer when you want fresh numbers in it.
@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: 24
       - run: npm run stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit if the numbers changed
         run: |
           if git diff --quiet src/content/stats.ts; then

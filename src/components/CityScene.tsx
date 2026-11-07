@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useLite } from './effects'
 import { rainStyle, useLiveWeather } from './liveWeather'
 
 type Layer = { buildings: string; windows: string }
@@ -50,16 +51,19 @@ export function CityScene({ parallax = true }: { parallax?: boolean }) {
   const far = useRef<HTMLDivElement>(null)
   const near = useRef<HTMLDivElement>(null)
   const rain = rainStyle(useLiveWeather())
+  const lite = useLite()
 
   useEffect(() => {
-    if (!parallax || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!parallax || lite) return
+    const farLayerEl = far.current
+    const nearLayerEl = near.current
 
     let frame = 0
     const update = () => {
       frame = 0
       const y = Math.min(window.scrollY, 900)
-      if (far.current) far.current.style.transform = `translateY(${y * 0.05}px)`
-      if (near.current) near.current.style.transform = `translateY(${y * 0.1}px)`
+      if (farLayerEl) farLayerEl.style.transform = `translateY(${y * 0.05}px)`
+      if (nearLayerEl) nearLayerEl.style.transform = `translateY(${y * 0.1}px)`
     }
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update)
@@ -69,8 +73,10 @@ export function CityScene({ parallax = true }: { parallax?: boolean }) {
     return () => {
       window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(frame)
+      if (farLayerEl) farLayerEl.style.transform = ''
+      if (nearLayerEl) nearLayerEl.style.transform = ''
     }
-  }, [parallax])
+  }, [parallax, lite])
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">

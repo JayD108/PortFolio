@@ -69,10 +69,11 @@ export function Encounters() {
     )
   }, [])
 
-  // The jet: once per visit, shortly after the reader first reaches Case Files.
+  // The jet: once per visit, shortly after the reader first reaches Projects.
   useEffect(() => {
     const cases = document.getElementById('cases')
-    if (!cases || alreadyShown('jet') || !('IntersectionObserver' in window)) return
+    // Phones skip the jet: on a small screen it covers too much of the page.
+    if (!cases || alreadyShown('jet') || !('IntersectionObserver' in window) || matchMedia('(max-width: 767px)').matches) return
     let start = 0
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return
@@ -196,7 +197,7 @@ export function Encounters() {
       )}
 
       {endVisible && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[35] flex justify-center" style={{ paddingInline: 'calc(var(--edge) + 8px)' }}>
+        <div className="pointer-events-none fixed inset-x-0 bottom-20 z-[35] flex justify-center lg:bottom-4" style={{ paddingInline: 'calc(var(--edge) + 8px)' }}>
           <div role="status" aria-label="Thanks for reading" className="end-note pointer-events-auto relative grid w-full max-w-md gap-2 border-[3px] border-black bg-cream p-4 text-night shadow-[6px_6px_0_#000]">
             <button
               type="button"

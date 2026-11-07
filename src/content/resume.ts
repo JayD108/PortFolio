@@ -61,13 +61,19 @@ export const resume = {
       bullets: ['Building geofence-triggered alerts with a looping full-screen alarm and QR pairing; push delivery and SMS confirmation in progress.'],
     },
   ] satisfies ResumeProject[],
+  achievements: [
+    'Amazon ML Challenge 2026, team TheMorphs: top 500 teams at the 48-hour mark (business entity resolution).',
+  ],
   certifications: [
     {
+      title: 'FP&A + AI: Budgeting, Forecasting, Business Partnering',
+      href: 'https://ude.my/UC-900ba64a-b44c-4170-be4c-82c7853eeb67',
+      issuer: 'Udemy, Oct 2026 (22.5 hours)',
+    },
+    {
       title: 'Machine Learning Specialization',
-      href: 'https://www.coursera.org/specializations/machine-learning-introduction',
-      issuer: 'Stanford Online and DeepLearning.AI',
-      detail:
-        'Courses: Supervised Machine Learning: Regression and Classification; Advanced Learning Algorithms; Unsupervised Learning, Recommenders, Reinforcement Learning.',
+      href: 'https://coursera.org/verify/specialization/GFN449VV297R',
+      issuer: 'Stanford Online and DeepLearning.AI, Jan 2026',
     },
   ],
   skills: [

@@ -59,11 +59,11 @@ const html = `<!doctype html>
     <ul>${p.bullets.map((b) => `<li>${esc(fill(b))}</li>`).join('')}</ul>
   </div>`).join('\n  ')}
 
+  <h2>Achievements</h2>
+  <ul>${resume.achievements.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+
   <h2>Certifications</h2>
-  ${resume.certifications.map((c) => `<div class="item">
-    <p><strong>${link(c.href, c.title)}</strong> | ${esc(c.issuer)}</p>
-    <ul><li>${esc(c.detail)}</li></ul>
-  </div>`).join('\n  ')}
+  <ul>${resume.certifications.map((c) => `<li><strong>${link(c.href, c.title)}</strong> | ${esc(c.issuer)}</li>`).join('')}</ul>
 
   <h2>Skills</h2>
   <ul>${resume.skills.map((s) => `<li><strong>${esc(s.label)}:</strong> ${esc(s.value)}</li>`).join('')}</ul>

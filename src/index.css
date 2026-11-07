@@ -418,3 +418,79 @@ body {
     transform: none;
   }
 }
+
+/* ---------- Mobile-first additions ---------- */
+
+/* Room for the phone's bottom menu, including the home-indicator area. */
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: calc(3.75rem + env(safe-area-inset-bottom));
+  }
+  html {
+    scroll-padding-top: 4rem;
+  }
+}
+
+.bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* The page under an open sheet or note doesn't scroll. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* The About sheet: full screen on phones, a centred panel on larger screens. */
+.sheet-panel {
+  min-height: 100%;
+}
+
+@media (min-width: 640px) {
+  .sheet-panel {
+    min-height: 0;
+  }
+}
+
+.sheet[open] .sheet-panel {
+  animation: sheet-up 260ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(32px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/*
+  Light effects: phones, data saver, low battery, slow devices and reduced motion.
+  The page stays the same; only the moving parts stop.
+*/
+.lite .rain,
+.lite .open-dot,
+.lite .sheet[open] .sheet-panel {
+  animation: none;
+}
+
+.lite .reveal,
+.lite .story-panel,
+.lite .halftone-shift::after {
+  transition: none;
+}
+
+.lite .reveal-pending {
+  opacity: 1;
+  transform: none;
+}
+
+.lite .story-panel:hover {
+  translate: none;
+}
+
+.lite .parallax {
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet[open] .sheet-panel {
+    animation: none;
+  }
+}
