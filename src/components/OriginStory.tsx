@@ -20,7 +20,7 @@ export function OriginStory() {
           return (
             <Reveal key={panel.id} className={wide ? 'md:col-span-2 lg:col-span-1' : ''}>
               <article className={`story-panel sfx-host panel-frame relative flex h-full flex-col bg-gunmetal ${tilts[index]} ${wide ? 'md:flex-row lg:flex-col' : ''}`}>
-                <div className={`halftone-shift relative h-44 shrink-0 overflow-hidden bg-slate/60 md:h-48 ${wide ? 'md:w-2/5 lg:w-full' : ''}`}>
+                <div className={`halftone-shift relative h-44 shrink-0 overflow-hidden bg-slate/60 md:h-48 ${wide ? 'md:w-1/2 lg:w-full' : ''}`}>
                   <OriginArt name={panel.id} />
                 </div>
                 <Caption className="absolute left-2 top-2 px-2 py-0.5 text-sm">{panel.caption}</Caption>
