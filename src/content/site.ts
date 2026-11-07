@@ -18,7 +18,6 @@ export const links = {
 }
 
 export const issue = {
-  title: ['The Dark', 'Coder'],
   number: '#1',
   date: 'Nov 2026',
   city: 'Null City',

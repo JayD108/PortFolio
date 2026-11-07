@@ -1,4 +1,4 @@
-// Training Arc copy. The comic and Recruiter Mode both read from this file.
+// Training Arc copy.
 // To change a skill's label, set status to 'battle-tested' or 'in-training'.
 
 export type SkillStatus = 'battle-tested' | 'in-training'

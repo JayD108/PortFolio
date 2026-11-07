@@ -1,4 +1,4 @@
-// Case Files data. The comic and Recruiter Mode both read from this file.
+// Case Files data.
 //
 // To add a case: copy any entry in `cases`, change its fields, and save.
 // It appears automatically under the category you set ('ai' or 'dev').

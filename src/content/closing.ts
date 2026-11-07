@@ -1,4 +1,4 @@
-// Copy for the last chapters. The comic and Recruiter Mode both read from this file.
+// Copy for the last chapters.
 
 export type ArtName = 'secure' | 'health' | 'fintech' | 'gaming' | 'brain' | 'android'
 

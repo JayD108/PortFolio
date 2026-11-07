@@ -311,7 +311,7 @@ function Block({ block }: { block: EvidenceBlock }) {
   }
 }
 
-/** Renders a case's evidence blocks. Both the comic and Recruiter Mode use this. */
+/** Renders a case's evidence blocks. Used by every case file. */
 export function EvidenceList({ blocks, wide = false }: { blocks: EvidenceBlock[]; wide?: boolean }) {
   return (
     <div className={`grid grid-cols-[minmax(0,1fr)] gap-6 ${wide ? 'items-start lg:grid-cols-2 lg:gap-x-8' : ''}`}>
