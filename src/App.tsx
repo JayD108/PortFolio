@@ -1,4 +1,5 @@
 import { CaseFiles } from './components/CaseFiles'
+import { ComicFooter, Mission, SideQuests, Signal } from './components/ClosingChapters'
 import { Cover } from './components/Cover'
 import { OriginStory } from './components/OriginStory'
 import { RecruiterView } from './components/RecruiterView'
@@ -20,6 +21,10 @@ export default function App() {
           <OriginStory />
           <TrainingArc />
           <CaseFiles />
+          <Mission />
+          <SideQuests />
+          <Signal />
+          <ComicFooter />
         </main>
       )}
     </>

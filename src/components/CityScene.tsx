@@ -45,12 +45,12 @@ const farLayer = makeLayer(2077, 90, 200, 0.03)
 const nearLayer = makeLayer(4242, 40, 130, 0.07)
 
 /** Decorative night city: fog, halftone, rain and two skyline layers with light parallax. */
-export function CityScene() {
+export function CityScene({ parallax = true }: { parallax?: boolean }) {
   const far = useRef<HTMLDivElement>(null)
   const near = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!parallax || matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let frame = 0
     const update = () => {
@@ -68,7 +68,7 @@ export function CityScene() {
       window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [parallax])
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">

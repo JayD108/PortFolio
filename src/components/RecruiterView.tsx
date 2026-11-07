@@ -1,4 +1,5 @@
 import { caseFilesCopy, cases } from '../content/cases'
+import { footer, mission, sideQuests } from '../content/closing'
 import { origin } from '../content/origin'
 import { links, person, serviceRecord } from '../content/site'
 import { statusLabels, training } from '../content/training'
@@ -11,7 +12,7 @@ const todoClass = 'border border-dashed border-signal px-1.5 text-sm font-semibo
 /** Plain, single-column resume view built from the same content files as the comic. */
 export function RecruiterView() {
   return (
-    <main className="mx-auto grid max-w-2xl gap-8 px-4 py-8">
+    <main className="mx-auto grid max-w-2xl grid-cols-[minmax(0,1fr)] gap-8 px-4 py-8">
       <header className="grid gap-2">
         <h1 className="text-3xl font-bold">{person.name}</h1>
         <p className="text-lg text-fog">{person.role}</p>
@@ -71,10 +72,10 @@ export function RecruiterView() {
       </section>
 
       {caseFilesCopy.categories.map((category) => (
-        <section key={category.id} aria-labelledby={`projects-${category.id}`} className="grid gap-5">
+        <section key={category.id} aria-labelledby={`projects-${category.id}`} className="grid grid-cols-[minmax(0,1fr)] gap-5">
           <h2 id={`projects-${category.id}`} className="text-xl font-bold">Projects: {category.label}</h2>
           {cases.filter((item) => item.category === category.id).map((item) => (
-            <article key={item.id} className="grid gap-1.5">
+            <article key={item.id} className="grid grid-cols-[minmax(0,1fr)] gap-1.5">
               <h3 className="font-semibold">{item.title} <span className="font-normal text-fog">({item.domain})</span></h3>
               <p>{item.problem}</p>
               {item.result && <p>{item.result}</p>}
@@ -96,6 +97,34 @@ export function RecruiterView() {
           ))}
         </section>
       ))}
+
+      <section aria-labelledby="mission-h" className="grid gap-2">
+        <h2 id="mission-h" className="text-xl font-bold">Mission</h2>
+        {mission.panels.map((panel) => (
+          <p key={panel.id}><span className="font-semibold">{panel.title}:</span> {panel.classified ? 'Classified. ' : ''}{panel.text}</p>
+        ))}
+      </section>
+
+      <section aria-labelledby="interests-h" className="grid gap-2">
+        <h2 id="interests-h" className="text-xl font-bold">Interests</h2>
+        {sideQuests.panels.map((panel) => (
+          <p key={panel.id}>
+            <span className="font-semibold">{panel.title}:</span> {panel.text} {panel.todo && <Todo>{panel.todo}</Todo>}
+          </p>
+        ))}
+      </section>
+
+      <section aria-labelledby="contact-h" className="grid gap-2">
+        <h2 id="contact-h" className="text-xl font-bold">Contact</h2>
+        <p className="flex flex-wrap gap-x-4 gap-y-1">
+          {links.email ? <a className={linkClass} href={`mailto:${links.email}`}>{links.email}</a> : <Todo>public email</Todo>}
+          <a className={linkClass} href={links.github}>GitHub</a>
+          {links.linkedIn ? <a className={linkClass} href={links.linkedIn}>LinkedIn</a> : <Todo>LinkedIn URL</Todo>}
+          <a className={linkClass} href={links.huggingFace}>Hugging Face</a>
+        </p>
+      </section>
+
+      <footer className="border-t border-slate pt-4 text-sm text-fog">{footer.credit}</footer>
     </main>
   )
 }
