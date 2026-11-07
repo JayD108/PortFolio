@@ -38,7 +38,7 @@ export const mission = {
       text: 'Bring AI into financial systems without weakening their security.',
       sfx: 'SECURED!',
     },
-  ] satisfies ClosingPanel[],
+  ] as ClosingPanel[],
 }
 
 export const sideQuests = {
@@ -65,7 +65,7 @@ export const sideQuests = {
       stamp: 'Next issue',
       sfx: 'BUILD!',
     },
-  ] satisfies ClosingPanel[],
+  ] as ClosingPanel[],
 }
 
 export const signal = {

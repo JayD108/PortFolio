@@ -68,5 +68,5 @@ export const training = {
       note: 'I completed AI in Fintech this semester, one of six subjects in my Honors course.',
       sfx: 'KA-CHING!',
     },
-  ] satisfies Pouch[],
+  ] as Pouch[],
 }
