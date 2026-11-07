@@ -144,7 +144,7 @@ export function Signal() {
             <ContactRow label="Hugging Face" href={links.huggingFace} display="JayF14" todo="" />
           </ul>
           <div className="order-1 flex justify-center md:order-2">
-            <Emblem className="w-56 drop-shadow-[0_0_38px_rgb(245_197_24/0.55)] sm:w-72 md:w-full md:max-w-sm" title="Circuit Eye emblem with the initials MD" />
+            <Emblem className="w-56 drop-shadow-[0_0_38px_rgb(245_197_24/0.55)] sm:w-72 md:w-full md:max-w-sm" title="MD monogram" />
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@ export function ComicFooter() {
     <footer className="mx-auto grid max-w-7xl gap-3 border-t-2 border-slate px-3 pb-12 pt-8 sm:px-4">
       <p className="comic-heading text-4xl leading-none text-signal md:text-5xl">{footer.continued}</p>
       <p className="flex items-center gap-2 text-sm text-fog">
-        <Emblem simple className="h-4 w-auto" />
+        <Emblem className="h-5 w-auto" />
         {footer.credit}
       </p>
     </footer>

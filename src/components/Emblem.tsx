@@ -1,42 +1,21 @@
 type EmblemProps = {
   className?: string
-  /** Simplified eye and centre dot, for small sizes where the monogram would blur. */
-  simple?: boolean
   title?: string
 }
 
-/** The Circuit Eye: an angular eye with circuit traces and an MD monogram as the iris. */
-export function Emblem({ className, simple = false, title }: EmblemProps) {
+const letters =
+  'M8 86V14H30L45 46 60 14H82V86H64V46L50 74H40L26 46V86ZM88 14H122C142 14 154 29 154 50 154 71 142 86 122 86H88ZM106 30V70H120C130 70 136 62 136 50 136 38 130 30 120 30Z'
+
+/** The MD monogram: bold slanted comic letters with an ink outline and a red drop shadow. */
+export function Emblem({ className, title }: EmblemProps) {
   const a11y = title ? { role: 'img', 'aria-label': title } : { 'aria-hidden': true }
 
-  if (simple) {
-    return (
-      <svg viewBox="0 0 64 40" className={className} {...a11y}>
-        <path d="M4 20 19 4H45L60 20 45 36H19Z" fill="#0B0D10" stroke="#F5C518" strokeWidth="5" />
-        <circle cx="32" cy="20" r="8" fill="#F5C518" />
-      </svg>
-    )
-  }
-
   return (
-    <svg viewBox="0 0 160 90" className={className} {...a11y}>
-      <g fill="none" stroke="#F5C518" strokeWidth="3" strokeLinecap="square">
-        <path d="M22 45H9M46 16 38 8H24M114 16l8-8h14M46 74l-8 8H24M114 74l8 8h14M138 45h13" />
+    <svg viewBox="0 0 176 100" className={className} {...a11y}>
+      <g transform="translate(14 0) skewX(-8)">
+        <path d={letters} fillRule="evenodd" fill="#c1121f" stroke="#c1121f" strokeWidth="5" strokeLinejoin="miter" transform="translate(6 6)" />
+        <path d={letters} fillRule="evenodd" fill="#f5c518" stroke="#000" strokeWidth="5" strokeLinejoin="miter" paintOrder="stroke" />
       </g>
-      <g fill="#F5C518">
-        <circle cx="7" cy="45" r="4" />
-        <circle cx="21" cy="8" r="4" />
-        <circle cx="139" cy="8" r="4" />
-        <circle cx="21" cy="82" r="4" />
-        <circle cx="139" cy="82" r="4" />
-        <circle cx="153" cy="45" r="4" />
-      </g>
-      <path d="M22 45 50 16H110L138 45 110 74H50Z" fill="#0B0D10" stroke="#F5C518" strokeWidth="5" />
-      <circle cx="80" cy="45" r="25" fill="#F5C518" />
-      <path
-        fill="#0B0D10"
-        d="M59 56V34h6l6 11 6-11h6v22h-6V44l-6 11-6-11v12ZM83 34h7c8 0 12 5 12 11s-4 11-12 11h-7v-6h7c4 0 6-2 6-5s-2-5-6-5h-7Z"
-      />
     </svg>
   )
 }

@@ -80,7 +80,7 @@ export function Cover() {
             </div>
 
             <div className="flex justify-center pb-16 pt-2 md:pb-0">
-              <Emblem className="w-52 drop-shadow-[0_0_34px_rgb(245_197_24/0.5)] sm:w-72 md:w-full md:max-w-sm" title="Circuit Eye emblem with the initials MD" />
+              <Emblem className="w-52 drop-shadow-[0_0_34px_rgb(245_197_24/0.5)] sm:w-72 md:w-full md:max-w-sm" title="MD monogram" />
             </div>
           </div>
         </div>

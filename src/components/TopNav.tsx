@@ -15,7 +15,7 @@ export function TopNav({ recruiterMode, onToggle }: TopNavProps) {
     <header className="sticky top-0 z-30 border-b-2 border-black bg-ink/95">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-3 sm:px-4">
         <a href="#cover" className="flex min-w-0 items-center gap-2 text-paper" aria-label={`${person.name}, back to the cover`}>
-          <Emblem simple className="h-6 w-auto shrink-0" />
+          <Emblem className="h-7 w-auto shrink-0" />
           <span className="comic-heading hidden whitespace-nowrap text-xl min-[440px]:inline">{issue.title.join(' ')}</span>
         </a>
 
