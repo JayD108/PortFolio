@@ -1,6 +1,7 @@
 import { serviceRecord } from '../content/site'
 import { statusLabels, training, type PouchIcon, type SkillStatus } from '../content/training'
 import { ChapterHeader, Reveal, Sfx, Todo } from './Comic'
+import { CourseworkFile } from './CourseworkFile'
 import { PouchIcon as PouchIconArt } from './PouchIcon'
 
 // Keeps every grid row full: AI / ML gets the extra width on desktop, Fintech on tablets.
@@ -84,6 +85,10 @@ export function TrainingArc() {
           </Reveal>
         ))}
       </div>
+
+      <Reveal>
+        <CourseworkFile />
+      </Reveal>
     </section>
   )
 }

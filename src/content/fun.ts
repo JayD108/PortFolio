@@ -2,7 +2,7 @@
 
 export const jet = {
   // Shown once per visit, when the reader first reaches Case Files.
-  captain: 'Captain Dubey here, flying over Null City.',
+  captain: 'Captain Jay here, flying over Null City.',
   message: "I'm running low on coffee. Got a role, a project or a question? Send the signal and I'll come in to land.",
   cta: 'Send the signal',
   dismiss: 'Not now',
