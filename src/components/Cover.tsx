@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { coverTeasers, issue, links, person } from '../content/site'
 import { CityScene } from './CityScene'
 import { Caption, Sfx } from './Comic'
+import { describe, useLiveWeather } from './liveWeather'
 
 const [firstName, ...rest] = person.name.split(' ')
 const lastName = rest.join(' ')
@@ -10,6 +12,12 @@ const teaserTilt = ['md:-rotate-2', 'md:rotate-1 md:-translate-x-5', 'md:-rotate
 
 /** Issue #1 cover: name, role and skills, three project teasers, and the resume in the corner. */
 export function Cover() {
+  const weather = useLiveWeather()
+  // Between 11 PM and 4 AM in the visitor's own time, the cover greets fellow night owls.
+  const [lateNight] = useState(() => {
+    const hour = new Date().getHours()
+    return hour >= 23 || hour < 4
+  })
   return (
     <section id="cover" aria-labelledby="cover-name" className="mx-auto max-w-7xl p-2 sm:p-3">
       <div className="night-scene panel-frame relative isolate overflow-hidden bg-ink">
@@ -37,6 +45,11 @@ export function Cover() {
                 <span className="font-normal text-[#9fdcb6]">· {person.availability}</span>
               </p>
               <Caption className="-rotate-1 px-3 py-1.5 text-base sm:text-lg">{person.tagline}</Caption>
+              {lateNight && (
+                <p className="w-fit rotate-1 border-2 border-black bg-cream px-3 py-1 text-sm font-semibold text-night shadow-[3px_3px_0_#000]">
+                  Working late too, detective? Same here.
+                </p>
+              )}
               <ul aria-label="Top skills" className="flex flex-wrap gap-2 pt-1">
                 {person.topSkills.map((skill) => (
                   <li key={skill} className="border border-slate bg-gunmetal px-2.5 py-1 text-sm font-medium text-paper">
@@ -92,6 +105,18 @@ export function Cover() {
           </span>
           <Sfx className="-left-5 -top-5 text-base">GRAB!</Sfx>
         </a>
+
+        {weather && (
+          <a
+            href="#case-varuna"
+            className="absolute bottom-4 left-4 z-10 hidden max-w-[16rem] items-center gap-2 border border-slate bg-ink/85 px-2.5 py-1.5 text-xs leading-snug text-fog hover:border-signal hover:text-paper min-[480px]:flex sm:bottom-6 sm:left-6"
+          >
+            <span aria-hidden="true" className="text-base leading-none">{weather.mmPerHour > 0 ? '☂' : '☁'}</span>
+            <span>
+              Live over Dehradun: {describe(weather)}. The rain here follows it, a nod to VARUNA.
+            </span>
+          </a>
+        )}
       </div>
     </section>
   )

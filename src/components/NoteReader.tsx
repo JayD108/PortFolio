@@ -67,7 +67,7 @@ export function NoteReader() {
                   <p key={paragraph} className="m-0 max-w-[68ch] text-[1.0625rem] leading-relaxed">{paragraph}</p>
                 ))}
                 {section.list && (
-                  <ul className="m-0 grid max-w-[68ch] gap-1.5 pl-5 text-[1.0625rem] leading-relaxed">
+                  <ul className="m-0 grid max-w-[68ch] list-disc gap-1.5 pl-6 text-[1.0625rem] leading-relaxed marker:text-[#7a4e00]">
                     {section.list.map((item) => <li key={item}>{item}</li>)}
                   </ul>
                 )}

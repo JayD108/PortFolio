@@ -7,7 +7,7 @@ import App from './App.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
-    {/* Cookie-free page view counts. Does nothing until Web Analytics is turned on in the Vercel dashboard. */}
-    <Analytics />
+    {/* Cookie-free page view counts. Only on Vercel, and only once Web Analytics is turned on in its dashboard. */}
+    {import.meta.env.VITE_ON_VERCEL && <Analytics />}
   </StrictMode>,
 )

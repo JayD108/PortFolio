@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { rainStyle, useLiveWeather } from './liveWeather'
 
 type Layer = { buildings: string; windows: string }
 
@@ -48,6 +49,7 @@ const nearLayer = makeLayer(4242, 40, 130, 0.07)
 export function CityScene({ parallax = true }: { parallax?: boolean }) {
   const far = useRef<HTMLDivElement>(null)
   const near = useRef<HTMLDivElement>(null)
+  const rain = rainStyle(useLiveWeather())
 
   useEffect(() => {
     if (!parallax || matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -74,7 +76,8 @@ export function CityScene({ parallax = true }: { parallax?: boolean }) {
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_42%,#39424f_0%,#1a1f26_42%,#0b0d10_78%)]" />
       <div className="halftone absolute inset-0" />
-      <div className="rain absolute inset-0" />
+      {/* Rain follows live rainfall over Dehradun, the region VARUNA forecasts. */}
+      <div className="rain absolute inset-0 transition-opacity duration-1000" style={{ opacity: rain.opacity, animationDuration: `${rain.seconds}s` }} />
 
       <div ref={far} className="parallax absolute inset-x-0 bottom-0 h-44 md:h-64">
         <svg viewBox="0 0 1600 260" preserveAspectRatio="xMidYMax slice" className="h-full w-full">

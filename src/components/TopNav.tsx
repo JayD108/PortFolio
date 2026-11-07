@@ -1,10 +1,13 @@
 import { useRef } from 'react'
 import { chapters, person } from '../content/site'
 import { EditionToggle } from './EditionToggle'
+import { useEvidence } from './evidenceStore'
+import { DetectiveBadgeIcon } from './Extras'
 import { Emblem } from './Emblem'
 
 export function TopNav() {
   const menu = useRef<HTMLDetailsElement>(null)
+  const { badge } = useEvidence()
   const linkClass = 'text-sm font-medium text-fog hover:text-signal underline-offset-4 hover:underline'
 
   return (
@@ -22,6 +25,12 @@ export function TopNav() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
+        {badge && (
+          <span title="Detective badge: every evidence file examined" className="grid size-10 place-items-center">
+            <DetectiveBadgeIcon className="size-7" />
+            <span className="sr-only">Detective badge earned</span>
+          </span>
+        )}
         <EditionToggle />
         <details ref={menu} className="relative shrink-0 lg:hidden">
           <summary className="cursor-pointer list-none rounded-sm border border-slate px-2.5 py-1.5 text-sm font-medium text-fog">

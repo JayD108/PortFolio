@@ -23,4 +23,6 @@ function siteUrlInHtml(): Plugin {
 export default defineConfig({
   base,
   plugins: [react(), tailwindcss(), siteUrlInHtml()],
+  // Vercel Analytics only exists on Vercel, so other hosts skip it instead of logging a 404.
+  define: { 'import.meta.env.VITE_ON_VERCEL': JSON.stringify(Boolean(process.env.VERCEL)) },
 })

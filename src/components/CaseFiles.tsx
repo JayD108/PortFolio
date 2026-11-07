@@ -1,6 +1,8 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
 import { caseFilesCopy, cases, type CaseCategory, type CaseFile as CaseFileData } from '../content/cases'
 import { notes } from '../content/notes'
+import { evidenceIds, markEvidenceOpened, useEvidence } from './evidenceStore'
+import { DetectiveBadgeIcon } from './Extras'
 import { ChapterHeader, Reveal, Sfx } from './Comic'
 import { EvidenceList } from './Evidence'
 
@@ -62,7 +64,10 @@ function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
                 type="button"
                 aria-expanded={open}
                 aria-controls={evidenceId}
-                onClick={() => setOpen(!open)}
+                onClick={() => {
+                  if (!open) markEvidenceOpened(data.id)
+                  setOpen(!open)
+                }}
                 className="sfx-host relative inline-flex min-h-11 items-center rounded-sm border-2 border-black bg-signal px-3 text-sm font-bold text-night shadow-[3px_3px_0_#000] hover:bg-cream"
               >
                 {open ? 'Hide evidence' : 'View evidence'}
@@ -83,6 +88,7 @@ function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
 export function CaseFiles() {
   const [active, setActive] = useState<CaseCategory>('ai')
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  const evidence = useEvidence()
   const { categories } = caseFilesCopy
 
   // A link to #case-<id> (the cover teasers) opens that case's tab first, then scrolls to it.
@@ -136,6 +142,22 @@ export function CaseFiles() {
           )
         })}
       </div>
+
+      <p className="-mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fog">
+        {evidence.badge ? (
+          <>
+            <DetectiveBadgeIcon className="size-5" />
+            <span>Detective badge earned. You examined every evidence file.</span>
+          </>
+        ) : (
+          <>
+            <span className="font-semibold text-paper">
+              Evidence examined: {evidence.opened.length} of {evidenceIds.length}
+            </span>
+            <span>Open them all to earn the detective badge.</span>
+          </>
+        )}
+      </p>
 
       <div id="case-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="grid grid-cols-[minmax(0,1fr)] gap-5 md:gap-6 lg:grid-flow-dense lg:grid-cols-2">
         {cases

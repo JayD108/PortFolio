@@ -74,6 +74,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Nothing decorative may ever make the page scroll sideways. */
+  overflow-x: clip;
   /* Keeps jump links clear of the sticky nav. */
   scroll-padding-top: 4.5rem;
 }
@@ -271,14 +273,33 @@ body {
   will-change: transform;
 }
 
+/* Panels turn in like a comic page, hinged on their left edge, the first time they scroll into view.
+   The far edge starts turned away from the viewer, so a panel never looks wider than the page. */
 .reveal {
   height: 100%;
-  transition: opacity 300ms ease, translate 300ms ease;
+  transform-origin: left center;
+  transition: opacity 450ms ease, transform 550ms cubic-bezier(0.2, 0.8, 0.3, 1);
 }
 
 .reveal-pending {
   opacity: 0;
-  translate: 0 16px;
+  transform: perspective(1400px) rotateY(12deg);
+}
+
+/* Ink splat on click: a quick spread, then it fades. */
+.ink-splash {
+  fill: rgb(245 197 24 / 0.55);
+  transform: rotate(var(--r)) scale(0.2);
+  animation: ink-splash 650ms cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
+:root[data-edition="day"] .ink-splash {
+  fill: rgb(22 25 29 / 0.4);
+}
+
+@keyframes ink-splash {
+  35% { opacity: 1; transform: rotate(var(--r)) scale(var(--s)); }
+  100% { opacity: 0; transform: rotate(var(--r)) scale(calc(var(--s) * 1.08)); }
 }
 
 /* A gear pouch: a stitched body under a flap. */
@@ -370,5 +391,25 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .open-dot {
     animation: none;
+  }
+}
+
+/* Secret night vision: ↑ ↑ ↓ ↓ ← → ← → B A. Applied to the root so fixed elements keep their place. */
+:root.night-vision {
+  filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(3.5) brightness(0.95);
+}
+
+.badge-notice {
+  animation: end-note-in 400ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-notice,
+  .ink-splash {
+    animation: none;
+  }
+
+  .reveal-pending {
+    transform: none;
   }
 }
