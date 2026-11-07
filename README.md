@@ -14,6 +14,12 @@ npm run build    # outputs to dist/
 
 All copy is in `src/content/`. Search the project for `TODO:` to find what still needs filling in.
 
+- `site.ts`: name, links, resume, email and Service Record
+- `origin.ts`: Origin Story
+- `training.ts`: skills and their "battle-tested" or "in training" labels
+- `cases.ts`: Case Files. To add a case, copy an entry and change its fields.
+- `closing.ts`: The Mission, Side Quests, Send the Signal and the footer
+
 ## Base path
 
 `vite.config.ts` builds for GitHub Pages at `/What-to-do-/`. If the repo is renamed or the site moves to a root address, build with `VITE_BASE` set to the new path, such as `VITE_BASE=/`.

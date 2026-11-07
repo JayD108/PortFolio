@@ -31,8 +31,8 @@ export function Cover() {
           <p
             className="comic-heading masthead mt-1 text-[clamp(4.5rem,23vw,7rem)] uppercase md:text-[clamp(5rem,min(12vw,23vh),11rem)]"
           >
-            <span className="block md:inline">{issue.title[0]} </span>
-            <span className="block md:inline">{issue.title[1]}</span>
+            <span className="block whitespace-nowrap md:inline">{issue.title[0]} </span>
+            <span className="block whitespace-nowrap md:inline">{issue.title[1]}</span>
           </p>
 
           <div className="mt-5 grid items-center gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
