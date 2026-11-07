@@ -1,6 +1,6 @@
 import { caseFilesCopy, cases } from '../content/cases'
 import { footer, mission, sideQuests } from '../content/closing'
-import { origin } from '../content/origin'
+import { intro } from '../content/intro'
 import { links, person, serviceRecord } from '../content/site'
 import { statusLabels, training } from '../content/training'
 import { Todo } from './Comic'
@@ -47,14 +47,9 @@ export function RecruiterView() {
         </dl>
       </section>
 
-      <section aria-labelledby="background-h" className="grid gap-3">
-        <h2 id="background-h" className="text-xl font-bold">Background</h2>
-        {origin.panels.map((panel) => (
-          <p key={panel.id}>
-            {panel.text} {panel.todo && <Todo>{panel.todo}</Todo>}
-          </p>
-        ))}
-        <p>{origin.mind.quote}</p>
+      <section aria-labelledby="intro-h" className="grid gap-3">
+        <h2 id="intro-h" className="text-xl font-bold">{intro.title}</h2>
+        {intro.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </section>
 
       <section aria-labelledby="skills-h" className="grid gap-4">

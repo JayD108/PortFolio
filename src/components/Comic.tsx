@@ -9,7 +9,7 @@ type ChapterHeaderProps = {
   id: string
   chapter: string
   title: string
-  narration: string
+  narration?: string
   children?: ReactNode
 }
 
@@ -19,7 +19,7 @@ export function ChapterHeader({ id, chapter, title, narration, children }: Chapt
     <header className="grid gap-3">
       <p className="text-xs font-bold uppercase tracking-widest text-fog">{chapter}</p>
       <h2 id={id} className="comic-heading text-5xl leading-none text-signal md:text-6xl">{title}</h2>
-      <Caption className="max-w-2xl rotate-[0.3deg] px-3 py-2 text-base sm:text-lg">{narration}</Caption>
+      {narration && <Caption className="max-w-2xl rotate-[0.3deg] px-3 py-2 text-base sm:text-lg">{narration}</Caption>}
       {children}
     </header>
   )
@@ -28,10 +28,6 @@ export function ChapterHeader({ id, chapter, title, narration, children }: Chapt
 /** Sound effect shown on hover or focus of the nearest .sfx-host. Decorative only. */
 export function Sfx({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <span aria-hidden="true" className={`sfx comic-heading ${className}`}>{children}</span>
-}
-
-export function SpeechBubble({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <blockquote className={`speech-bubble ${className}`}>{children}</blockquote>
 }
 
 /** Marks content that still needs writing, so it can't be mistaken for finished copy. */

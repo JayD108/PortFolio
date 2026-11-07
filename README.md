@@ -15,7 +15,7 @@ npm run build    # outputs to dist/
 All copy is in `src/content/`. Search the project for `TODO:` to find what still needs filling in.
 
 - `site.ts`: name, links, resume, email and Service Record
-- `origin.ts`: Origin Story
+- `intro.ts`: Introduction
 - `training.ts`: skills and their "battle-tested" or "in training" labels
 - `cases.ts`: Case Files. To add a case, copy an entry and change its fields.
 - `closing.ts`: The Mission, Side Quests, Send the Signal and the footer

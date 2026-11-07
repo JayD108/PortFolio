@@ -123,40 +123,6 @@ body {
   will-change: transform;
 }
 
-.speech-bubble {
-  position: relative;
-  margin: 0;
-  padding: 0.75rem 1rem;
-  background: var(--color-paper);
-  color: var(--color-ink);
-  border: 3px solid #000;
-  border-radius: 1.25rem;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-/* Tail points up at the caption on phones and left at it on wider screens. */
-.speech-bubble::before {
-  content: "";
-  position: absolute;
-  left: 1.5rem;
-  top: -14px;
-  width: 22px;
-  height: 14px;
-  background: #000;
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
-}
-
-@media (min-width: 768px) {
-  .speech-bubble::before {
-    left: -17px;
-    top: calc(50% - 11px);
-    width: 14px;
-    height: 22px;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%);
-  }
-}
-
 .reveal {
   height: 100%;
   transition: opacity 300ms ease, translate 300ms ease;

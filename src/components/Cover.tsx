@@ -54,7 +54,7 @@ export function Cover() {
 
               <div className="flex flex-wrap gap-2 pt-2">
                 <a
-                  href="#origin"
+                  href="#intro"
                   className="sfx-host relative inline-flex min-h-11 items-center rounded-sm border-2 border-black bg-signal px-4 text-sm font-bold text-ink shadow-[3px_3px_0_#000] hover:bg-paper"
                 >
                   {issue.openLabel}

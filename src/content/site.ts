@@ -30,7 +30,7 @@ export const issue = {
 }
 
 export const chapters = [
-  { id: 'origin', label: 'Origin' },
+  { id: 'intro', label: 'Intro' },
   { id: 'training', label: 'Training Arc' },
   { id: 'cases', label: 'Case Files' },
   { id: 'mission', label: 'Mission' },
