@@ -12,8 +12,8 @@ export const links = {
   github: 'https://github.com/JayD108',
   huggingFace: 'https://huggingface.co/JayF14',
   linkedIn: 'https://www.linkedin.com/in/mrittunjaydubey' as string | null,
-  // TODO: add your resume PDF to public/ and set this to its file name, e.g. 'resume.pdf'.
-  resume: null as string | null,
+  // The PDF lives in public/. Replace that file to update your resume.
+  resume: 'Mrittunjay_Dubey_Resume.pdf' as string | null,
   email: 'mrittunjaydubey3@gmail.com' as string | null,
 }
 

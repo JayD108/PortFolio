@@ -377,58 +377,6 @@ export const cases: CaseFile[] = [
     links: [{ label: 'Code', href: `${github}/God-S-EYE-v2.0` }],
   },
   {
-    id: 'algovision',
-    category: 'dev',
-    title: 'AlgoVision',
-    domain: 'Web app · live',
-    problem: 'Algorithm theory is hard to picture from a textbook. This interactive dashboard turns it into animations you can control.',
-    result:
-      'A Python server computes real results and the browser animates them, for nine algorithms. pytest cross-checks them against brute-force results and validates the API.',
-    stack: ['Python', 'FastAPI', 'Pydantic', 'Vanilla JavaScript', 'pytest', 'ruff'],
-    links: [
-      { label: 'Live demo', href: 'https://algo-vision-nu.vercel.app' },
-      { label: 'Code', href: `${github}/AlgoVision` },
-    ],
-    evidence: [
-      {
-        type: 'list',
-        title: 'Nine algorithms across seven families',
-        items: [
-          { term: 'Greedy', detail: 'Huffman coding, compared against Shannon entropy' },
-          { term: 'Dynamic programming', detail: '0/1 knapsack and stock profit with K transactions' },
-          { term: 'NP-hard', detail: 'Travelling salesman: exact Held-Karp up to 15 cities, heuristic up to 30' },
-          { term: 'Backtracking', detail: 'N-Queens and Sudoku' },
-          { term: 'Recursion', detail: 'Tower of Hanoi' },
-          { term: 'Graphs', detail: 'Max flow with Edmonds-Karp and minimum-cut display' },
-          { term: 'Game theory', detail: 'Tic-Tac-Toe against minimax with alpha-beta pruning' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'bunk-and-chutti',
-    category: 'dev',
-    title: 'Bunk & Chutti',
-    domain: 'Android app',
-    problem: 'Students need to know how many classes they can miss before it costs them. This native Android planner answers that.',
-    result: 'It reads a photo of your timetable to set up your schedule, then forecasts your attendance for the rest of the semester.',
-    stack: ['Java', 'Android', 'Google ML Kit', 'MPAndroidChart', 'AndroidX Security'],
-    links: [{ label: 'Code', href: `${github}/srmpro` }],
-    evidence: [
-      {
-        type: 'list',
-        title: 'What it does',
-        items: [
-          { term: 'Time Machine', detail: 'Simulates future attendance, such as missing all of next week' },
-          { term: 'Smart Status', detail: 'Shows at a glance how many classes you can skip or must attend' },
-          { term: 'Timetable Scanner', detail: 'Sets up your schedule from an image using OCR' },
-          { term: 'Semester Forecast', detail: 'Breaks down every class month by month until the semester ends' },
-          { term: 'Encrypted storage', detail: 'Protects your data with AES-256 through Android KeyStore' },
-        ],
-      },
-    ],
-  },
-  {
     id: 'gatekeeper',
     category: 'dev',
     title: 'GateKeeper',

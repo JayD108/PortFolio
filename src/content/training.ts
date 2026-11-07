@@ -33,7 +33,7 @@ export const training = {
       title: 'Backend',
       status: 'in-training',
       items: ['Java', 'Backend development'],
-      note: 'Practice so far includes an inventory system, a multi-threaded CSV processor and an Android app in Java.',
+      note: 'Practice so far includes an inventory system and a multi-threaded CSV processor.',
       sfx: 'COMPILE!',
     },
     {
