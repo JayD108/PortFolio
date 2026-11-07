@@ -1,5 +1,5 @@
 import { origin } from '../content/origin'
-import { Caption, Reveal, Sfx, SpeechBubble, Todo } from './Comic'
+import { Caption, ChapterHeader, Reveal, Sfx, SpeechBubble, Todo } from './Comic'
 import { OriginArt } from './OriginArt'
 
 const tilts = ['md:-rotate-[0.6deg]', 'md:rotate-[0.5deg]', 'md:-rotate-[0.3deg]']
@@ -7,11 +7,7 @@ const tilts = ['md:-rotate-[0.6deg]', 'md:rotate-[0.5deg]', 'md:-rotate-[0.3deg]
 export function OriginStory() {
   return (
     <section id="origin" aria-labelledby="origin-title" className="mx-auto grid max-w-7xl gap-6 px-3 py-12 sm:px-4 md:py-16">
-      <header className="grid gap-3">
-        <p className="text-xs font-bold uppercase tracking-widest text-fog">{origin.chapter}</p>
-        <h2 id="origin-title" className="comic-heading text-5xl leading-none text-signal md:text-6xl">{origin.title}</h2>
-        <Caption className="max-w-2xl -rotate-[0.4deg] px-3 py-2 text-base sm:text-lg">{origin.narration}</Caption>
-      </header>
+      <ChapterHeader id="origin-title" chapter={origin.chapter} title={origin.title} narration={origin.narration} />
 
       <div className="grid gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         {origin.panels.map((panel, index) => {

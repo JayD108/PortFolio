@@ -1,7 +1,9 @@
+import { caseFilesCopy, cases } from '../content/cases'
 import { origin } from '../content/origin'
 import { links, person, serviceRecord } from '../content/site'
 import { statusLabels, training } from '../content/training'
 import { Todo } from './Comic'
+import { EvidenceList } from './Evidence'
 
 const linkClass = 'font-medium text-signal underline underline-offset-4 hover:text-paper'
 const todoClass = 'border border-dashed border-signal px-1.5 text-sm font-semibold text-signal'
@@ -67,6 +69,33 @@ export function RecruiterView() {
           </div>
         ))}
       </section>
+
+      {caseFilesCopy.categories.map((category) => (
+        <section key={category.id} aria-labelledby={`projects-${category.id}`} className="grid gap-5">
+          <h2 id={`projects-${category.id}`} className="text-xl font-bold">Projects: {category.label}</h2>
+          {cases.filter((item) => item.category === category.id).map((item) => (
+            <article key={item.id} className="grid gap-1.5">
+              <h3 className="font-semibold">{item.title} <span className="font-normal text-fog">({item.domain})</span></h3>
+              <p>{item.problem}</p>
+              {item.result && <p>{item.result}</p>}
+              {item.limit && <p className="text-fog">{item.limit}</p>}
+              <p className="text-fog">Stack: {item.stack.join(', ')}</p>
+              {(item.links.length > 0 || item.status) && (
+                <p className="flex flex-wrap gap-x-4 gap-y-1">
+                  {item.links.map((link) => <a key={link.href} className={linkClass} href={link.href}>{link.label}</a>)}
+                  {item.status && <span>{item.status}</span>}
+                </p>
+              )}
+              {item.evidence && (
+                <details>
+                  <summary className="cursor-pointer font-medium text-signal">View evidence</summary>
+                  <div className="pt-3"><EvidenceList blocks={item.evidence} /></div>
+                </details>
+              )}
+            </article>
+          ))}
+        </section>
+      ))}
     </main>
   )
 }

@@ -1,3 +1,4 @@
+import { CaseFiles } from './components/CaseFiles'
 import { Cover } from './components/Cover'
 import { OriginStory } from './components/OriginStory'
 import { RecruiterView } from './components/RecruiterView'
@@ -18,6 +19,7 @@ export default function App() {
           <Cover />
           <OriginStory />
           <TrainingArc />
+          <CaseFiles />
         </main>
       )}
     </>

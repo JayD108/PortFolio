@@ -10,6 +10,10 @@
   --color-paper: #f2f3f0;
   --color-signal: #f5c518;
   --color-blood: #c1121f;
+  /* Chart series. Checked for colour-blind separation against the ink background. */
+  --color-s1: #c48520;
+  --color-s2: #3f93cc;
+  --color-s3: #d0628a;
   --font-comic: "Bangers", "Impact", "Arial Narrow", sans-serif;
   --font-body: "Inter Variable", "Segoe UI", system-ui, sans-serif;
 }

@@ -5,6 +5,26 @@ export function Caption({ children, className = '' }: { children: ReactNode; cla
   return <p className={`caption-box w-fit font-bold ${className}`}>{children}</p>
 }
 
+type ChapterHeaderProps = {
+  id: string
+  chapter: string
+  title: string
+  narration: string
+  children?: ReactNode
+}
+
+/** The heading block every chapter opens with. `id` labels the chapter's section. */
+export function ChapterHeader({ id, chapter, title, narration, children }: ChapterHeaderProps) {
+  return (
+    <header className="grid gap-3">
+      <p className="text-xs font-bold uppercase tracking-widest text-fog">{chapter}</p>
+      <h2 id={id} className="comic-heading text-5xl leading-none text-signal md:text-6xl">{title}</h2>
+      <Caption className="max-w-2xl rotate-[0.3deg] px-3 py-2 text-base sm:text-lg">{narration}</Caption>
+      {children}
+    </header>
+  )
+}
+
 /** Sound effect shown on hover or focus of the nearest .sfx-host. Decorative only. */
 export function Sfx({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <span aria-hidden="true" className={`sfx comic-heading ${className}`}>{children}</span>

@@ -1,6 +1,6 @@
 import { serviceRecord } from '../content/site'
 import { statusLabels, training, type PouchIcon, type SkillStatus } from '../content/training'
-import { Caption, Reveal, Sfx, Todo } from './Comic'
+import { ChapterHeader, Reveal, Sfx, Todo } from './Comic'
 import { PouchIcon as PouchIconArt } from './PouchIcon'
 
 // Keeps every grid row full: AI / ML gets the extra width on desktop, Fintech on tablets.
@@ -43,10 +43,7 @@ function ServiceRecord() {
 export function TrainingArc() {
   return (
     <section id="training" aria-labelledby="training-title" className="mx-auto grid max-w-7xl gap-6 px-3 py-12 sm:px-4 md:py-16">
-      <header className="grid gap-3">
-        <p className="text-xs font-bold uppercase tracking-widest text-fog">{training.chapter}</p>
-        <h2 id="training-title" className="comic-heading text-5xl leading-none text-signal md:text-6xl">{training.title}</h2>
-        <Caption className="max-w-2xl rotate-[0.3deg] px-3 py-2 text-base sm:text-lg">{training.narration}</Caption>
+      <ChapterHeader id="training-title" chapter={training.chapter} title={training.title} narration={training.narration}>
         <ul aria-label="What the labels mean" className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
           {training.legend.map((entry) => (
             <li key={entry.status} className="flex flex-wrap items-center gap-2 text-sm text-fog">
@@ -55,7 +52,7 @@ export function TrainingArc() {
             </li>
           ))}
         </ul>
-      </header>
+      </ChapterHeader>
 
       <div className="grid gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
         <Reveal className="md:col-span-2">
