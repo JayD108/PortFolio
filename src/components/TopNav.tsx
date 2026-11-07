@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { chapters, person } from '../content/site'
+import { chapters, links, person } from '../content/site'
 import { EditionToggle } from './EditionToggle'
 import { useEvidence } from './evidenceStore'
 import { DetectiveBadgeIcon } from './Extras'
@@ -31,6 +31,18 @@ export function TopNav() {
             <span className="sr-only">Detective badge earned</span>
           </span>
         )}
+        {/* Always visible, so the resume is one tap away on every screen, however short. */}
+        <a
+          href={`${import.meta.env.BASE_URL}${links.resume}`}
+          aria-label="Resume (PDF)"
+          className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-sm border-2 border-black bg-signal px-2.5 text-sm font-bold text-night shadow-[2px_2px_0_#000] hover:bg-cream"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2">
+            <path d="M6 2.5h8l4.5 4.5v14.5H6Z" />
+            <path d="M14 2.5V7h4.5M9 12h6M9 15.5h6" />
+          </svg>
+          <span className="hidden min-[360px]:inline">Resume</span>
+        </a>
         <EditionToggle />
         <details ref={menu} className="relative shrink-0 lg:hidden">
           <summary className="cursor-pointer list-none rounded-sm border border-slate px-2.5 py-1.5 text-sm font-medium text-fog">
