@@ -1,8 +1,9 @@
 import { footer, mission, sideQuests, signal, type ArtName, type ClosingPanel } from '../content/closing'
-import { links, person } from '../content/site'
+import { links, person, socials } from '../content/site'
 import { CityScene } from './CityScene'
 import { ChapterHeader, Reveal, Sfx, Todo } from './Comic'
 import { Emblem } from './Emblem'
+import { MailIcon, SocialIcon } from './SocialIcon'
 
 /** Small original icons for the Mission and Side Quests panels. Decorative only. */
 function ClosingIcon({ name }: { name: ArtName }) {
@@ -98,26 +99,6 @@ export function SideQuests() {
   )
 }
 
-const contactLink =
-  'flex min-h-11 items-center justify-between gap-3 rounded-sm border-2 border-paper bg-ink px-4 py-2 font-semibold text-paper hover:border-signal hover:text-signal'
-
-function ContactRow({ label, href, display, todo }: { label: string; href: string | null; display?: string; todo: string }) {
-  if (!href) {
-    return (
-      <li className="flex min-h-11 items-center justify-between gap-3 border-2 border-dashed border-signal bg-ink px-4 py-2 font-semibold text-paper">
-        {label} <Todo>{todo}</Todo>
-      </li>
-    )
-  }
-  return (
-    <li>
-      <a href={href} className={contactLink}>
-        {label} <span className="min-w-0 truncate text-sm font-medium text-fog">{display}</span>
-      </a>
-    </li>
-  )
-}
-
 export function Signal() {
   return (
     <section id="signal" aria-labelledby="signal-title" className="mx-auto grid max-w-7xl gap-6 px-3 py-12 sm:px-4 md:py-16">
@@ -137,12 +118,29 @@ export function Signal() {
         </svg>
 
         <div className="relative grid items-center gap-6 px-4 pb-28 pt-6 sm:px-7 md:grid-cols-2 md:pb-40 md:pt-10">
-          <ul aria-label={`Ways to contact ${person.name}`} className="order-2 grid gap-2.5 md:order-1">
-            <ContactRow label="Email" href={links.email ? `mailto:${links.email}` : null} display={links.email ?? undefined} todo="public email" />
-            <ContactRow label="GitHub" href={links.github} display="JayD108" todo="" />
-            <ContactRow label="LinkedIn" href={links.linkedIn} display="mrittunjay-dubey" todo="LinkedIn URL" />
-            <ContactRow label="Hugging Face" href={links.huggingFace} display="JayF14" todo="" />
-          </ul>
+          <div className="order-2 grid gap-4 md:order-1">
+            <a
+              href={`mailto:${links.email}`}
+              className="flex min-h-12 min-w-0 items-center gap-3 rounded-sm border-2 border-paper bg-ink px-4 py-2.5 font-semibold text-paper hover:border-signal hover:text-signal"
+            >
+              <MailIcon className="size-6 shrink-0" />
+              <span className="min-w-0 break-all text-sm sm:text-base">{links.email}</span>
+            </a>
+            <ul aria-label={`${person.name} online`} className="grid grid-cols-3 gap-2.5 min-[420px]:grid-cols-5">
+              {socials.map((social) => (
+                <li key={social.id}>
+                  <a
+                    href={social.href}
+                    aria-label={`${social.label}: ${social.handle}`}
+                    title={`${social.label}: ${social.handle}`}
+                    className="grid aspect-square place-items-center rounded-sm border-2 border-paper bg-ink text-paper shadow-[3px_3px_0_#000] hover:-translate-y-0.5 hover:border-signal hover:bg-signal hover:text-ink"
+                  >
+                    <SocialIcon id={social.id} className="size-7 sm:size-8" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="order-1 flex justify-center md:order-2">
             <Emblem className="w-56 drop-shadow-[0_0_38px_rgb(245_197_24/0.55)] sm:w-72 md:w-full md:max-w-sm" title="MD monogram" />
           </div>

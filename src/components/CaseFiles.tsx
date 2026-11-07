@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type KeyboardEvent } from 'react'
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
 import { caseFilesCopy, cases, type CaseCategory, type CaseFile as CaseFileData } from '../content/cases'
 import { ChapterHeader, Reveal, Sfx } from './Comic'
 import { EvidenceList } from './Evidence'
@@ -19,7 +19,7 @@ function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
 
   return (
     <Reveal className={open ? 'lg:col-span-2' : 'lg:[&:nth-child(odd):last-child]:col-span-2'}>
-      <article aria-labelledby={`${data.id}-title`} className={`story-panel panel-frame flex h-full flex-col bg-gunmetal ${tilt}`}>
+      <article id={`case-${data.id}`} aria-labelledby={`${data.id}-title`} className={`scroll-mt-20 story-panel panel-frame flex h-full flex-col bg-gunmetal ${tilt}`}>
         <header className="halftone-shift relative grid gap-1 border-b-[5px] border-black bg-slate/60 px-4 py-3">
           <p className="relative text-xs font-bold uppercase tracking-wide text-fog">Case file · {data.domain}</p>
           <h3 id={`${data.id}-title`} className="comic-heading relative text-4xl leading-none text-paper">{data.title}</h3>
@@ -70,6 +70,20 @@ export function CaseFiles() {
   const [active, setActive] = useState<CaseCategory>('ai')
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const { categories } = caseFilesCopy
+
+  // A link to #case-<id> (the cover teasers) opens that case's tab first, then scrolls to it.
+  useEffect(() => {
+    const open = () => {
+      const id = location.hash.replace('#case-', '')
+      const found = location.hash.startsWith('#case-') && cases.find((item) => item.id === id)
+      if (!found) return
+      setActive(found.category)
+      requestAnimationFrame(() => document.getElementById(`case-${id}`)?.scrollIntoView())
+    }
+    open()
+    window.addEventListener('hashchange', open)
+    return () => window.removeEventListener('hashchange', open)
+  }, [])
 
   const onKeyDown = (event: KeyboardEvent, index: number) => {
     if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return

@@ -142,13 +142,6 @@ body {
   box-shadow: 4px 4px 0 #000;
 }
 
-.price-burst {
-  clip-path: polygon(
-    50% 0, 61% 12%, 77% 6%, 80% 22%, 96% 26%, 89% 41%, 100% 54%, 86% 62%, 88% 79%,
-    71% 78%, 62% 94%, 49% 84%, 36% 96%, 28% 79%, 11% 81%, 14% 63%, 0 53%, 11% 41%,
-    5% 25%, 21% 22%, 24% 6%, 39% 12%
-  );
-}
 
 /* Sound effects appear only on hover or keyboard focus, and never take pointer events. */
 .sfx {

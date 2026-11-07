@@ -1,5 +1,4 @@
-// All site copy lives in src/content. Search for "TODO:" to find what still needs filling in.
-// A link set to null renders as a clearly marked placeholder instead of a dead link.
+// All site copy lives in src/content.
 
 export const person = {
   name: 'Mrittunjay Dubey',
@@ -9,22 +8,35 @@ export const person = {
 }
 
 export const links = {
-  github: 'https://github.com/JayD108',
-  huggingFace: 'https://huggingface.co/JayF14',
-  linkedIn: 'https://www.linkedin.com/in/mrittunjay-dubey-598b0931a' as string | null,
   // The PDF lives in public/. Replace that file to update your resume.
-  resume: 'Mrittunjay_Dubey_Resume.pdf' as string | null,
-  email: 'mrittunjaydubey3@gmail.com' as string | null,
+  resume: 'Mrittunjay_Dubey_Resume.pdf',
+  email: 'mrittunjaydubey3@gmail.com',
 }
+
+export type SocialId = 'github' | 'linkedin' | 'huggingface' | 'reddit' | 'steam'
+
+// Shown as logos in the Send the Signal chapter. `label` is read out by screen readers.
+export const socials: { id: SocialId; label: string; handle: string; href: string }[] = [
+  { id: 'github', label: 'GitHub', handle: 'JayD108', href: 'https://github.com/JayD108' },
+  { id: 'linkedin', label: 'LinkedIn', handle: 'mrittunjay-dubey', href: 'https://www.linkedin.com/in/mrittunjay-dubey-598b0931a' },
+  { id: 'huggingface', label: 'Hugging Face', handle: 'JayF14', href: 'https://huggingface.co/JayF14' },
+  { id: 'reddit', label: 'Reddit', handle: 'over-under_fitted', href: 'https://www.reddit.com/user/over-under_fitted' },
+  { id: 'steam', label: 'Steam', handle: 'Jay_18', href: 'https://steamcommunity.com/id/kamalkartehoyaar/' },
+]
 
 export const issue = {
   number: '#1',
   date: 'Nov 2026',
   city: 'Null City',
-  priceAmount: '₹0',
-  priceNote: 'Free for recruiters',
   openLabel: 'Open the comic',
 }
+
+// Teaser panels on the cover. `caseId` must match an id in cases.ts; clicking jumps to that case file.
+export const coverTeasers = [
+  { caseId: 'mona', title: 'MONA', number: '110M', label: 'parameter language model, built from scratch' },
+  { caseId: 'varuna', title: 'VARUNA', number: '190 GB', label: 'of weather data fused to forecast cloudbursts' },
+  { caseId: 'apala-v2', title: 'APALA v2', number: '624', label: 'fold trainings in a leakage-proof EEG benchmark' },
+]
 
 export const chapters = [
   { id: 'intro', label: 'Intro' },
@@ -37,7 +49,6 @@ export const chapters = [
 
 export type RecordRow = { label: string; value: string | null; todo?: string }
 
-// value: null shows a TODO marker on the page until the number is verified.
 export const serviceRecord: RecordRow[] = [
   { label: 'Degree', value: 'B.Tech CSE (Fintech Honors)' },
   { label: 'College', value: 'SRM Institute of Science and Technology' },
