@@ -55,10 +55,10 @@ export const resume = {
     },
     {
       title: 'GateKeeper',
-      subtitle: 'two-phone alert app for my parents',
+      subtitle: 'two-phone alert app for my parents (in progress)',
       href: 'https://github.com/JayD108/GateKeeper',
       stack: 'Kotlin, Android, Firebase',
-      bullets: ['Built geofence-triggered alerts with a looping alarm, one-tap confirmation, SMS fallback and QR pairing.'],
+      bullets: ['Building geofence-triggered alerts with a looping full-screen alarm and QR pairing; push delivery and SMS confirmation in progress.'],
     },
   ] satisfies ResumeProject[],
   certifications: [

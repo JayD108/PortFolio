@@ -38,7 +38,7 @@ export const issue = {
 export const coverTeasers = [
   { caseId: 'mona', title: 'MONA', number: '110M', label: 'parameter language model, built from scratch' },
   { caseId: 'varuna', title: 'VARUNA', number: '190 GB', label: 'of weather data fused to forecast cloudbursts' },
-  { caseId: 'apala-v2', title: 'APALA v2', number: '624', label: 'fold trainings in a leakage-proof EEG benchmark' },
+  { caseId: 'apala-v2', title: 'APALA v2', number: '624', label: 'fold trainings in a leakage-controlled EEG benchmark' },
 ]
 
 export const chapters = [

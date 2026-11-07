@@ -6,9 +6,9 @@ export function PouchIcon({ name }: { name: IconName }) {
     <svg
       viewBox="0 0 48 48"
       aria-hidden="true"
-      className="size-11 shrink-0"
+      className="size-11 shrink-0 text-signal"
       fill="none"
-      stroke="#f5c518"
+      stroke="currentColor"
       strokeWidth="3"
       strokeLinecap="square"
     >
@@ -35,7 +35,7 @@ export function PouchIcon({ name }: { name: IconName }) {
           <path d="M11 12 24 24M11 36l13-12M24 24h13" />
           <circle cx="9" cy="10" r="5" />
           <circle cx="9" cy="38" r="5" />
-          <circle cx="24" cy="24" r="5" fill="#f5c518" />
+          <circle cx="24" cy="24" r="5" fill="currentColor" />
           <circle cx="40" cy="24" r="5" />
         </>
       )}

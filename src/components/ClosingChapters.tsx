@@ -10,7 +10,7 @@ import { MailIcon, SocialIcon } from './SocialIcon'
 /** Small original icons for the Mission and Side Quests panels. Decorative only. */
 function ClosingIcon({ name }: { name: ArtName }) {
   return (
-    <svg viewBox="0 0 64 64" aria-hidden="true" className="relative size-16" fill="none" stroke="#f5c518" strokeWidth="4" strokeLinecap="square">
+    <svg viewBox="0 0 64 64" aria-hidden="true" className="relative size-16 text-signal" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="square">
       {name === 'secure' && (
         <>
           <path d="M14 28h36v28H14Z" />

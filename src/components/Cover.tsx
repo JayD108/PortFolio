@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { coverTeasers, issue, links, person } from '../content/site'
+import { coverTeasers, issue, links, person, serviceRecord } from '../content/site'
 import { CityScene } from './CityScene'
 import { Caption, Sfx } from './Comic'
 import { describe, useLiveWeather } from './liveWeather'
 
 const [firstName, ...rest] = person.name.split(' ')
 const lastName = rest.join(' ')
+
+// College, graduation year and CGPA come from the Service Record, so the cover and the record can't disagree.
+const record = Object.fromEntries(serviceRecord.map((row) => [row.label, row.value ?? '']))
 
 // Each teaser panel sits at its own slight angle and offset, like panels pasted onto the page.
 const teaserTilt = ['md:-rotate-2', 'md:rotate-1 md:-translate-x-5', 'md:-rotate-1']
@@ -23,7 +26,8 @@ export function Cover() {
       <div className="night-scene panel-frame relative isolate overflow-hidden bg-ink">
         <CityScene />
 
-        <div className="relative px-4 pb-28 pt-3 sm:px-7 md:pb-36">
+        {/* Bottom padding leaves room for the skyline and the corner Resume box. Kept tight so the box stays on the first screen. */}
+        <div className="relative px-4 pb-24 pt-3 sm:px-7 md:pb-24">
           <p className="w-fit border-2 border-black bg-cream px-2 py-1 text-[0.6875rem] font-bold uppercase text-night sm:px-2.5 sm:text-xs sm:tracking-wide">
             Issue {issue.number} · {issue.date} · {issue.city}
           </p>
@@ -38,7 +42,12 @@ export function Cover() {
 
           <div className="mt-5 grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-12">
             <div className="grid min-w-0 gap-3">
-              <p className="text-base font-medium text-fog sm:text-lg">{person.role}</p>
+              <div className="grid gap-0.5">
+                <p className="text-base font-medium text-fog sm:text-lg">{person.role}</p>
+                <p className="text-sm font-semibold text-paper sm:text-base">
+                  {record.College} · Class of {record.Graduation} · CGPA {record.CGPA}
+                </p>
+              </div>
               <p className="flex w-fit flex-wrap items-center gap-x-2 gap-y-0.5 border-2 border-[#3fbf6f] bg-[#0f2a1b] px-3 py-1.5 text-sm font-semibold text-[#c9f5d8]">
                 <span aria-hidden="true" className="open-dot size-2.5 shrink-0 rounded-full bg-[#3fbf6f]" />
                 <span>Open to {person.openTo}</span>

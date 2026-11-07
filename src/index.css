@@ -144,6 +144,11 @@ body {
   outline-offset: 2px;
 }
 
+/* Yellow is too faint on newsprint, so the daylight focus ring is near-black. The night scenes keep yellow. */
+:root[data-edition="day"] :focus-visible:not(.night-scene *) {
+  outline-color: #16191d;
+}
+
 .comic-heading {
   font-family: var(--font-comic);
   font-weight: 400;

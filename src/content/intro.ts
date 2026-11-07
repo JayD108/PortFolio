@@ -11,7 +11,7 @@ export const intro = {
     },
     {
       heading: 'What I build',
-      text: 'A language model trained from scratch, a storm forecasting model for the Himalayas and a seizure forecasting benchmark. I also build software people can use, such as GateKeeper, an Android alert app for my parents.',
+      text: "A language model trained from scratch, a storm forecasting model for the Himalayas and a seizure forecasting benchmark. I'm also building software for real people, starting with GateKeeper, an Android alert app for my parents.",
     },
     {
       heading: "Where I'm headed",

@@ -61,7 +61,7 @@ export const sideQuests = {
     {
       id: 'android',
       title: 'Android apps',
-      text: 'I built GateKeeper, a messaging and notification app, for my parents. Apps for my friends are coming next.',
+      text: "I'm building GateKeeper, a two-phone gate alert app, for my parents. Apps for my friends are coming next.",
       stamp: 'Next issue',
       sfx: 'BUILD!',
     },
