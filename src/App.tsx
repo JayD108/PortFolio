@@ -3,6 +3,7 @@ import { ComicFooter, Mission, SideQuests, Signal } from './components/ClosingCh
 import { Cover } from './components/Cover'
 import { Encounters } from './components/Encounters'
 import { Introduction } from './components/Introduction'
+import { NoteReader } from './components/NoteReader'
 import { TopNav } from './components/TopNav'
 import { TrainingArc } from './components/TrainingArc'
 
@@ -24,6 +25,7 @@ export default function App() {
         <ComicFooter />
       </main>
       <Encounters />
+      <NoteReader />
     </>
   )
 }

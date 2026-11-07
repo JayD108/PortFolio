@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
 import { caseFilesCopy, cases, type CaseCategory, type CaseFile as CaseFileData } from '../content/cases'
+import { notes } from '../content/notes'
 import { ChapterHeader, Reveal, Sfx } from './Comic'
 import { EvidenceList } from './Evidence'
 
@@ -15,6 +16,7 @@ function Labelled({ label, children }: { label: string; children: string }) {
 function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
   const [open, setOpen] = useState(false)
   const evidenceId = useId()
+  const note = notes.find((n) => n.caseId === data.id)
   const tilt = open ? '' : index % 2 ? 'md:rotate-[0.3deg]' : 'md:-rotate-[0.3deg]'
 
   return (
@@ -43,13 +45,25 @@ function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
               </a>
             ))}
             {data.status && <span className="inline-flex min-h-11 items-center border-2 border-dashed border-fog px-3 text-sm font-semibold text-paper">{data.status}</span>}
+            {note && (
+              <a
+                href={`#note-${data.id}`}
+                className="inline-flex min-h-11 items-center gap-2 rounded-sm border-2 border-signal bg-ink px-3 text-sm font-semibold text-signal hover:bg-signal hover:text-night"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
+                  <path d="M3 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H3ZM21 5h-7a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h7Z" />
+                </svg>
+                Read case notes
+                <span className="font-normal opacity-80">· {note.readMinutes} min</span>
+              </a>
+            )}
             {data.evidence && (
               <button
                 type="button"
                 aria-expanded={open}
                 aria-controls={evidenceId}
                 onClick={() => setOpen(!open)}
-                className="sfx-host relative inline-flex min-h-11 items-center rounded-sm border-2 border-black bg-signal px-3 text-sm font-bold text-ink shadow-[3px_3px_0_#000] hover:bg-paper"
+                className="sfx-host relative inline-flex min-h-11 items-center rounded-sm border-2 border-black bg-signal px-3 text-sm font-bold text-night shadow-[3px_3px_0_#000] hover:bg-cream"
               >
                 {open ? 'Hide evidence' : 'View evidence'}
                 <Sfx className="-right-3 -top-5 text-lg">KRAK!</Sfx>
@@ -114,10 +128,10 @@ export function CaseFiles() {
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(category.id)}
               onKeyDown={(event) => onKeyDown(event, index)}
-              className={`grid gap-0.5 border-2 px-4 py-3 text-left ${selected ? 'border-black bg-signal text-ink shadow-[4px_4px_0_#000]' : 'border-slate bg-gunmetal text-paper hover:border-signal'}`}
+              className={`grid gap-0.5 border-2 px-4 py-3 text-left ${selected ? 'border-black bg-signal text-night shadow-[4px_4px_0_#000]' : 'border-slate bg-gunmetal text-paper hover:border-signal'}`}
             >
               <span className="comic-heading text-3xl leading-none">{category.label}</span>
-              <span className={`text-sm ${selected ? 'text-ink' : 'text-fog'}`}>{category.description} · {count} files</span>
+              <span className={`text-sm ${selected ? 'text-night' : 'text-fog'}`}>{category.description} · {count} files</span>
             </button>
           )
         })}
