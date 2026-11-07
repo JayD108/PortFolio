@@ -46,6 +46,8 @@ export type CaseFile = {
   title: string
   domain: string
   problem: string
+  /** Heading above `problem`. Defaults to "The problem"; set it when the text is a description instead. */
+  problemLabel?: string
   result?: string
   limit?: string
   status?: string
@@ -453,6 +455,7 @@ export const cases: CaseFile[] = [
     category: 'dev',
     title: 'TRIANGLE',
     domain: 'Web app',
+    problemLabel: 'The brief',
     problem:
       'A browser-based open-source intelligence platform that maps strategic chokepoints and geopolitical developments, with a council of 11 AI agents answering queries, including one that checks the others’ work.',
     stack: ['TypeScript', 'Node.js'],
@@ -463,6 +466,7 @@ export const cases: CaseFile[] = [
     category: 'dev',
     title: 'Java projects',
     domain: 'Desktop and backend practice',
+    problemLabel: 'The brief',
     problem: 'Practice in core Java: an inventory management system, a multi-threaded CSV file processor and a Swing calculator.',
     stack: ['Java', 'Swing'],
     links: [{ label: 'Code', href: `${github}/My_JAVA_FS-project` }],

@@ -25,8 +25,8 @@ function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
           <h3 id={`${data.id}-title`} className="comic-heading relative text-4xl leading-none text-paper">{data.title}</h3>
         </header>
 
-        <div className="grid flex-1 content-start gap-3 p-4">
-          <Labelled label="The problem">{data.problem}</Labelled>
+        <div className="grid flex-1 grid-cols-[minmax(0,1fr)] content-start gap-3 p-4">
+          <Labelled label={data.problemLabel ?? 'The problem'}>{data.problem}</Labelled>
           {data.result && <Labelled label="The result">{data.result}</Labelled>}
           {data.limit && <Labelled label="The limits">{data.limit}</Labelled>}
 
@@ -58,7 +58,7 @@ function CaseFile({ data, index }: { data: CaseFileData; index: number }) {
           </div>
 
           <div id={evidenceId} hidden={!open} className="border-t-2 border-slate pt-4">
-            {open && data.evidence && <EvidenceList blocks={data.evidence} />}
+            {open && data.evidence && <EvidenceList blocks={data.evidence} wide />}
           </div>
         </div>
       </article>
@@ -81,7 +81,7 @@ export function CaseFiles() {
   }
 
   return (
-    <section id="cases" aria-labelledby="cases-title" className="mx-auto grid max-w-7xl gap-6 px-3 py-12 sm:px-4 md:py-16">
+    <section id="cases" aria-labelledby="cases-title" className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-6 px-3 py-12 sm:px-4 md:py-16">
       <ChapterHeader id="cases-title" chapter={caseFilesCopy.chapter} title={caseFilesCopy.title} narration={caseFilesCopy.narration} />
 
       <div role="tablist" aria-label="Type of work" className="grid gap-3 sm:grid-cols-2">
@@ -109,7 +109,7 @@ export function CaseFiles() {
         })}
       </div>
 
-      <div id="case-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="grid gap-5 md:gap-6 lg:grid-flow-dense lg:grid-cols-2">
+      <div id="case-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="grid grid-cols-[minmax(0,1fr)] gap-5 md:gap-6 lg:grid-flow-dense lg:grid-cols-2">
         {cases
           .filter((item) => item.category === active)
           .map((item, index) => <CaseFile key={item.id} data={item} index={index} />)}

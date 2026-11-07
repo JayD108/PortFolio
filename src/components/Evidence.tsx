@@ -44,7 +44,7 @@ function Bars({ block }: { block: Extract<EvidenceBlock, { type: 'bars' }> }) {
   const show = (value: Tip, event: React.PointerEvent) => setTip({ ...value, x: event.clientX, y: event.clientY })
 
   return (
-    <figure className="m-0 grid gap-3">
+    <figure className="m-0 grid grid-cols-[minmax(0,1fr)] gap-3">
       <figcaption className="font-semibold text-paper">{block.title}</figcaption>
       <Legend items={block.legend} />
       <div className="grid gap-3">
@@ -116,7 +116,7 @@ function Lines({ block }: { block: Extract<EvidenceBlock, { type: 'lines' }> }) 
   }
 
   return (
-    <figure className="m-0 grid gap-3">
+    <figure className="m-0 grid grid-cols-[minmax(0,1fr)] gap-3">
       <figcaption className="font-semibold text-paper">{block.title}</figcaption>
       <Legend items={block.series.map((s) => ({ label: s.name, color: s.color }))} />
       <div ref={box} className="w-full" style={{ touchAction: 'pan-y' }}>
@@ -202,7 +202,7 @@ function Code({ title, code }: { title: string; code: string }) {
   }
 
   return (
-    <div className="grid gap-2">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-2">
       <h4 className="m-0 font-semibold text-paper">{title}</h4>
       <div className="flex items-stretch border-2 border-slate bg-ink">
         <pre ref={pre} className="m-0 min-w-0 flex-1 overflow-x-auto p-3 text-[0.8125rem] leading-relaxed text-paper">{code}</pre>
@@ -222,7 +222,7 @@ function Block({ block }: { block: EvidenceBlock }) {
       return <Lines block={block} />
     case 'table':
       return (
-        <div className="grid gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-2">
           <h4 className="m-0 font-semibold text-paper">{block.title}</h4>
           <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={block.title}>
             <table className="w-full border-collapse text-sm tabular-nums">
@@ -248,7 +248,7 @@ function Block({ block }: { block: EvidenceBlock }) {
       )
     case 'facts':
       return (
-        <div className="grid gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-2">
           {block.title && <h4 className="m-0 font-semibold text-paper">{block.title}</h4>}
           <dl className="m-0 grid gap-x-5 gap-y-2.5 sm:grid-cols-2">
             {block.facts.map((fact) => (
@@ -262,7 +262,7 @@ function Block({ block }: { block: EvidenceBlock }) {
       )
     case 'list':
       return (
-        <div className="grid gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-2">
           <h4 className="m-0 font-semibold text-paper">{block.title}</h4>
           <dl className="m-0 grid gap-x-5 gap-y-2.5 sm:grid-cols-2">
             {block.items.map((item) => (
@@ -276,7 +276,7 @@ function Block({ block }: { block: EvidenceBlock }) {
       )
     case 'image':
       return (
-        <figure className="m-0 grid gap-2">
+        <figure className="m-0 grid grid-cols-[minmax(0,1fr)] gap-2">
           <img
             src={`${import.meta.env.BASE_URL}${block.src}`}
             alt={block.alt}
@@ -301,7 +301,7 @@ function Block({ block }: { block: EvidenceBlock }) {
       )
     case 'text':
       return (
-        <div className="grid gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-2">
           <h4 className="m-0 font-semibold text-paper">{block.title}</h4>
           {block.paragraphs.map((paragraph) => (
             <p key={paragraph} className="text-sm leading-relaxed text-fog">{paragraph}</p>
@@ -312,10 +312,14 @@ function Block({ block }: { block: EvidenceBlock }) {
 }
 
 /** Renders a case's evidence blocks. Both the comic and Recruiter Mode use this. */
-export function EvidenceList({ blocks }: { blocks: EvidenceBlock[] }) {
+export function EvidenceList({ blocks, wide = false }: { blocks: EvidenceBlock[]; wide?: boolean }) {
   return (
-    <div className="grid min-w-0 gap-6">
-      {blocks.map((block, index) => <Block key={index} block={block} />)}
+    <div className={`grid grid-cols-[minmax(0,1fr)] gap-6 ${wide ? 'items-start lg:grid-cols-2 lg:gap-x-8' : ''}`}>
+      {blocks.map((block, index) => (
+        <div key={index} className={`min-w-0 ${wide && block.type === 'image' ? 'lg:col-span-2' : ''}`}>
+          <Block block={block} />
+        </div>
+      ))}
     </div>
   )
 }
