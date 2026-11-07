@@ -10,11 +10,11 @@ export function CourseworkFile() {
   return (
     <section aria-label={coursework.title} className="grid">
       {/* Folder tab */}
-      <div className="folder-tab ml-4 w-fit border-[3px] border-b-0 border-black bg-[#d9c48f] px-4 pb-1 pt-1.5 text-xs font-bold uppercase tracking-widest text-ink">
+      <div className="folder-tab ml-4 w-fit border-[3px] border-b-0 border-black bg-[#d9c48f] px-4 pb-1 pt-1.5 text-xs font-bold uppercase tracking-widest text-night">
         Academic record
       </div>
 
-      <div className="folder relative border-[3px] border-black bg-[#e6d3a3] text-ink shadow-[5px_5px_0_#000]">
+      <div className="folder relative border-[3px] border-black bg-[#e6d3a3] text-night shadow-[5px_5px_0_#000]">
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
           <div className="grid gap-0.5">
             <h3 className="comic-heading text-3xl leading-none">{coursework.title}</h3>
@@ -27,7 +27,7 @@ export function CourseworkFile() {
             aria-expanded={open}
             aria-controls={contentId}
             onClick={() => setOpen(!open)}
-            className="sfx-host relative inline-flex min-h-11 items-center gap-2 rounded-sm border-2 border-black bg-ink px-4 text-sm font-bold text-paper shadow-[3px_3px_0_#000] hover:bg-signal hover:text-ink"
+            className="sfx-host relative inline-flex min-h-11 items-center gap-2 rounded-sm border-2 border-black bg-night px-4 text-sm font-bold text-cream shadow-[3px_3px_0_#000] hover:bg-signal hover:text-night"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
               {open ? <path d="M3 7h6l2 2h10v10H3Z" /> : <path d="M3 5h6l2 2h10v12H3Z" />}
@@ -46,7 +46,7 @@ export function CourseworkFile() {
           {open && (
             <ol className="m-0 grid list-none gap-5 p-0 sm:grid-cols-2 xl:grid-cols-4">
               {coursework.semesters.map((semester) => (
-                <li key={semester.number} className="grid content-start gap-2 border-2 border-black bg-paper p-3">
+                <li key={semester.number} className="grid content-start gap-2 border-2 border-black bg-cream p-3">
                   <div className="flex items-baseline justify-between gap-2 border-b-2 border-black pb-1.5">
                     <h4 className="comic-heading m-0 text-2xl leading-none">Semester {semester.number}</h4>
                     <span className="text-xs font-semibold">{semester.session}</span>
@@ -54,7 +54,7 @@ export function CourseworkFile() {
                   <ul className="m-0 grid list-none gap-1 p-0 text-sm leading-snug">
                     {semester.subjects.map((subject) => (
                       <li key={subject} className="flex gap-2">
-                        <span aria-hidden="true" className="mt-[0.45em] size-1.5 shrink-0 bg-ink" />
+                        <span aria-hidden="true" className="mt-[0.45em] size-1.5 shrink-0 bg-night" />
                         <span>{subject}</span>
                       </li>
                     ))}

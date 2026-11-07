@@ -14,7 +14,7 @@ const spans: Partial<Record<PouchIcon, string>> = {
 function StatusStamp({ status }: { status: SkillStatus }) {
   const style =
     status === 'battle-tested'
-      ? 'border-2 border-black bg-signal text-ink'
+      ? 'border-2 border-black bg-signal text-night'
       : 'border-2 border-dashed border-fog text-paper'
 
   return (
@@ -26,7 +26,7 @@ function StatusStamp({ status }: { status: SkillStatus }) {
 
 function ServiceRecord() {
   return (
-    <article aria-labelledby="record-title" className="story-panel panel-frame flex h-full flex-col gap-3 bg-paper p-4 text-ink md:-rotate-[0.4deg]">
+    <article aria-labelledby="record-title" className="story-panel panel-frame flex h-full flex-col gap-3 bg-cream p-4 text-night md:-rotate-[0.4deg]">
       <p className="text-xs font-bold uppercase tracking-widest">Personnel file</p>
       <h3 id="record-title" className="comic-heading text-3xl leading-none">Service Record</h3>
       <dl className="grid gap-x-6 gap-y-2.5 md:grid-cols-2">

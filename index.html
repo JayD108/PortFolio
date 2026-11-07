@@ -6,6 +6,12 @@
     <title>Mrittunjay Dubey | Portfolio</title>
     <meta name="description" content="Mrittunjay Dubey, B.Tech CSE student (Fintech Honors) building secure systems and AI projects. A portfolio told as a noir comic." />
     <meta name="theme-color" content="#0b0d10" />
+    <!-- Applies a saved daylight edition before the page paints, so it never flashes dark first. -->
+    <script>
+      try {
+        if (localStorage.getItem('edition') === 'day') document.documentElement.dataset.edition = 'day'
+      } catch {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- Loads the first-screen fonts early so the cover doesn't jump when they arrive. -->
     <link rel="preload" as="font" type="font/woff2" crossorigin href="./node_modules/@fontsource/bangers/files/bangers-latin-400-normal.woff2" />

@@ -179,12 +179,12 @@ export function Encounters() {
             }}
           >
             <JetArt />
-            <div className="jet-bubble relative grid max-w-[min(22rem,calc(100vw-2*var(--edge)-1rem))] gap-2 border-[3px] border-black bg-paper p-3 text-ink shadow-[4px_4px_0_#000]">
+            <div className="jet-bubble relative grid max-w-[min(22rem,calc(100vw-2*var(--edge)-1rem))] gap-2 border-[3px] border-black bg-cream p-3 text-night shadow-[4px_4px_0_#000]">
               <p className="comic-heading text-xl leading-none">{jet.captain}</p>
               <p className="text-sm leading-snug">{jet.message}</p>
               <div className="flex flex-wrap gap-2 pt-1">
-                <button type="button" onClick={goToSignal} className={`${button} bg-signal hover:bg-ink hover:text-signal`}>{jet.cta}</button>
-                <button type="button" onClick={flyAway} className={`${button} bg-paper hover:bg-ink hover:text-paper`}>{jet.dismiss}</button>
+                <button type="button" onClick={goToSignal} className={`${button} bg-signal hover:bg-night hover:text-signal`}>{jet.cta}</button>
+                <button type="button" onClick={flyAway} className={`${button} bg-cream hover:bg-night hover:text-cream`}>{jet.dismiss}</button>
               </div>
             </div>
           </div>
@@ -193,20 +193,20 @@ export function Encounters() {
 
       {endVisible && (
         <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[35] flex justify-center" style={{ paddingInline: 'calc(var(--edge) + 8px)' }}>
-          <div role="status" aria-label="Thanks for reading" className="end-note pointer-events-auto relative grid w-full max-w-md gap-2 border-[3px] border-black bg-paper p-4 text-ink shadow-[6px_6px_0_#000]">
+          <div role="status" aria-label="Thanks for reading" className="end-note pointer-events-auto relative grid w-full max-w-md gap-2 border-[3px] border-black bg-cream p-4 text-night shadow-[6px_6px_0_#000]">
             <button
               type="button"
               aria-label="Close"
               onClick={() => setEndVisible(false)}
-              className="absolute right-2 top-2 grid size-9 place-items-center rounded-sm text-xl font-bold leading-none hover:bg-ink hover:text-paper"
+              className="absolute right-2 top-2 grid size-9 place-items-center rounded-sm text-xl font-bold leading-none hover:bg-night hover:text-cream"
             >
               ×
             </button>
             <p className="caption-box w-fit -rotate-1 px-2 py-0.5 text-sm font-bold uppercase">{endOfIssue.title}</p>
             <p className="pr-6 text-sm leading-relaxed">{endOfIssue.message}</p>
             <div className="flex flex-wrap gap-2 pt-1">
-              <button type="button" onClick={goToSignal} className={`${button} bg-signal hover:bg-ink hover:text-signal`}>{endOfIssue.cta}</button>
-              <button type="button" onClick={copyEmail} className={`${button} bg-paper hover:bg-ink hover:text-paper`}>{copyLabel}</button>
+              <button type="button" onClick={goToSignal} className={`${button} bg-signal hover:bg-night hover:text-signal`}>{endOfIssue.cta}</button>
+              <button type="button" onClick={copyEmail} className={`${button} bg-cream hover:bg-night hover:text-cream`}>{copyLabel}</button>
             </div>
           </div>
         </div>

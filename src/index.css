@@ -10,8 +10,55 @@
   --color-paper: #f2f3f0;
   --color-signal: #f5c518;
   --color-blood: #c1121f;
+  /* Always dark and always light, whichever edition is showing. Use them on yellow and paper surfaces. */
+  --color-night: #0b0d10;
+  --color-cream: #f2f3f0;
   --font-comic: "Bangers", "Impact", "Arial Narrow", sans-serif;
   --font-body: "Inter Variable", "Segoe UI", system-ui, sans-serif;
+}
+
+/*
+  Daylight edition: the page turns to printed newsprint. The cover and Signal scenes are
+  night illustrations, so `.night-scene` keeps the night palette inside them.
+*/
+:root[data-edition="day"] {
+  color-scheme: light;
+  --color-ink: #efe6cf;
+  --color-gunmetal: #fbf7ec;
+  --color-slate: #d6c9a8;
+  --color-fog: #4a4e55;
+  --color-paper: #16191d;
+  --color-s1: #9c6206;
+  --color-s2: #2a6f9e;
+  --color-s3: #b0436b;
+}
+
+:root[data-edition="day"] .night-scene {
+  --color-ink: #0b0d10;
+  --color-gunmetal: #1a1f26;
+  --color-slate: #2b323c;
+  --color-fog: #c6ccd4;
+  --color-paper: #f2f3f0;
+  color: var(--color-paper);
+}
+
+/* Yellow text is unreadable on newsprint, so it becomes dark amber outside the night scenes. */
+:root[data-edition="day"] :is(.text-signal, .hover\:text-signal:hover):not(.night-scene *) {
+  color: #7a4e00;
+}
+
+:root[data-edition="day"] .halftone,
+:root[data-edition="day"] .halftone-shift::after {
+  background-image: radial-gradient(rgb(70 55 25 / 0.14) 1.2px, transparent 1.5px);
+}
+
+:root[data-edition="day"] .pouch {
+  outline-color: rgb(70 55 25 / 0.35);
+}
+
+:root[data-edition="day"] .night-scene .halftone,
+:root[data-edition="day"] .night-scene .halftone-shift::after {
+  background-image: radial-gradient(rgb(198 204 212 / 0.16) 1.2px, transparent 1.5px);
 }
 
 /*
@@ -137,7 +184,7 @@ body {
 
 .caption-box {
   background: var(--color-signal);
-  color: var(--color-ink);
+  color: var(--color-night);
   border: 3px solid #000;
   box-shadow: 4px 4px 0 #000;
 }
@@ -150,7 +197,7 @@ body {
   opacity: 0;
   transform: rotate(-8deg) scale(0.7);
   transition: opacity 150ms ease, transform 150ms ease;
-  color: var(--color-ink);
+  color: var(--color-night);
   background: var(--color-signal);
   border: 2px solid #000;
   padding: 0 0.4em;

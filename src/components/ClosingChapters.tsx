@@ -61,7 +61,7 @@ function IconPanel({ panel, index }: { panel: ClosingPanel; index: number }) {
         <div className="grid flex-1 content-start gap-2 p-4">
           <h3 id={`panel-${panel.id}`} className="comic-heading text-3xl leading-none text-paper">{panel.title}</h3>
           {panel.stamp && (
-            <p className={`w-fit -rotate-2 border-2 px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${panel.classified ? 'border-black bg-blood text-white' : 'border-black bg-signal text-ink'}`}>
+            <p className={`w-fit -rotate-2 border-2 px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${panel.classified ? 'border-black bg-blood text-white' : 'border-black bg-signal text-night'}`}>
               {panel.stamp}
             </p>
           )}
@@ -139,7 +139,7 @@ export function Signal() {
   return (
     <section id="signal" aria-labelledby="signal-title" className="mx-auto grid max-w-7xl gap-6 px-3 py-12 sm:px-4 md:py-16">
       <ChapterHeader id="signal-title" chapter={signal.chapter} title={signal.title} narration={signal.narration} />
-      <div className="panel-frame relative isolate overflow-hidden bg-ink">
+      <div className="night-scene panel-frame relative isolate overflow-hidden bg-ink">
         <CityScene parallax={false} />
 
         {/* The beam runs from the rooftops up to the emblem. Its position changes with the layout. */}
@@ -172,7 +172,7 @@ export function Signal() {
                     href={social.href}
                     aria-label={`${social.label}: ${social.handle}`}
                     title={`${social.label}: ${social.handle}`}
-                    className="grid aspect-square place-items-center rounded-sm border-2 border-paper bg-ink text-paper shadow-[3px_3px_0_#000] hover:-translate-y-0.5 hover:border-signal hover:bg-signal hover:text-ink"
+                    className="grid aspect-square place-items-center rounded-sm border-2 border-paper bg-ink text-paper shadow-[3px_3px_0_#000] hover:-translate-y-0.5 hover:border-signal hover:bg-signal hover:text-night"
                   >
                     <SocialIcon id={social.id} className="size-7 sm:size-8" />
                   </a>
