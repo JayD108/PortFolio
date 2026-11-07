@@ -1,0 +1,34 @@
+# Refreshes the live numbers on the site (Hugging Face downloads and likes) every Monday.
+# If they changed, it commits src/content/stats.ts, which triggers a new deploy.
+# The resume PDF is not rebuilt here: fonts on GitHub's servers differ from yours,
+# so run `npm run resume` on your own computer when you want fresh numbers in it.
+name: Update live stats
+
+on:
+  schedule:
+    - cron: '30 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run stats
+      - name: Commit if the numbers changed
+        run: |
+          if git diff --quiet src/content/stats.ts; then
+            echo "No change."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/content/stats.ts
+            git commit -m "Update live stats"
+            git push
+          fi

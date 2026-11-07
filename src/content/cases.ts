@@ -1,3 +1,5 @@
+import { stats } from './stats'
+
 // Case Files data.
 //
 // To add a case: copy any entry in `cases`, change its fields, and save.
@@ -68,6 +70,10 @@ export const caseFilesCopy = {
 
 const github = 'https://github.com/JayD108'
 const hf = 'https://huggingface.co/JayF14'
+
+// Dataset numbers come from stats.ts, which a weekly job keeps current.
+const statsMonth = new Date(`${stats.updated}T00:00:00Z`).toLocaleString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+const statsLine = `${stats.dataset.downloads.toLocaleString('en-US')} downloads and ${stats.dataset.likes} likes as of ${statsMonth}`
 
 export const cases: CaseFile[] = [
   {
@@ -352,7 +358,7 @@ export const cases: CaseFile[] = [
     domain: 'Public dataset',
     problem:
       'Raw EEG takes heavy signal processing before you can train on it. This feature-engineered dataset for seizure forecasting is ready to use without any.',
-    result: '347,075 labelled windows, with 407 downloads and 5 likes as of November 2026.',
+    result: `347,075 labelled windows, with ${statsLine}.`,
     stack: ['Hugging Face dataset', 'ODC-By 1.0'],
     links: [{ label: 'Dataset', href: 'https://huggingface.co/datasets/JayF14/chb-mit-preprocessed-eeg' }],
     evidence: [
@@ -362,7 +368,7 @@ export const cases: CaseFile[] = [
           { label: 'Windows', value: '347,075 labelled' },
           { label: 'Features', value: '590 per window' },
           { label: 'Size', value: 'About 3.9 GB' },
-          { label: 'Downloads', value: '407, as of November 2026' },
+          { label: 'Downloads', value: `${stats.dataset.downloads.toLocaleString('en-US')}, as of ${statsMonth}` },
         ],
       },
     ],
