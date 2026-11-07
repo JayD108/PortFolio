@@ -387,9 +387,8 @@ export const cases: CaseFile[] = [
       "I designed a two-phone alert system that needs no manual tracking. It sends a quiet notice when the commuter leaves work, then sounds a looping full-screen alarm about 3 minutes from home, until the person at home taps to confirm.",
     limit:
       'Android only, and installed directly instead of through Google Play, because of Play’s restrictions on SMS permissions.',
-    status: 'Code not public',
     stack: ['Kotlin', 'Android', 'Firebase', 'Geofencing', 'SMS', 'ZXing'],
-    links: [],
+    links: [{ label: 'Code', href: `${github}/GateKeeper` }],
     evidence: [
       {
         type: 'list',
