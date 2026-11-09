@@ -14,9 +14,6 @@ import { TrainingArc } from './components/TrainingArc'
 export default function App() {
   return (
     <>
-      {/* Torn newsprint down both sides of the page. Decorative only. */}
-      <div aria-hidden="true" className="torn-edge torn-edge-left"><span /></div>
-      <div aria-hidden="true" className="torn-edge torn-edge-right"><span /></div>
       <TopNav />
       <main>
         <Cover />

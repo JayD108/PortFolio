@@ -81,7 +81,7 @@ html {
 }
 
 :root {
-  /* Width of the torn newsprint strip on each side of the page. */
+  /* Side gutter of the page (also used by floating overlays). */
   --edge: 12px;
 }
 
@@ -98,45 +98,6 @@ body {
   color: var(--color-paper);
   font-family: var(--font-body);
   overflow-x: clip;
-}
-
-/*
-  Torn newsprint: a strip of aged paper fixed to each side of the window.
-  The outer element carries the shadow; the inner one is cut to a torn edge by a repeating mask.
-*/
-.torn-edge {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  z-index: 40;
-  width: calc(var(--edge) + 4px);
-  pointer-events: none;
-  filter: drop-shadow(2px 0 2px rgb(0 0 0 / 0.7));
-}
-
-.torn-edge-left {
-  left: 0;
-}
-
-.torn-edge-right {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-.torn-edge span {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(rgb(92 70 34 / 0.28) 0.8px, transparent 1.2px) 0 0 / 5px 5px,
-    linear-gradient(90deg, #cdbd96 0%, #e6dcc2 55%, #efe7d2 100%);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 240' preserveAspectRatio='none'%3E%3Cpath d='M0 0H22L26 9 20 18 25 29 19 40 24 49 18 60 25 70 21 82 27 93 20 104 24 115 18 126 25 136 20 148 26 158 19 170 24 181 18 192 25 203 21 215 26 226 20 235 22 240H0Z'/%3E%3C/svg%3E") 0 0 / 100% 240px repeat-y;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 240' preserveAspectRatio='none'%3E%3Cpath d='M0 0H22L26 9 20 18 25 29 19 40 24 49 18 60 25 70 21 82 27 93 20 104 24 115 18 126 25 136 20 148 26 158 19 170 24 181 18 192 25 203 21 215 26 226 20 235 22 240H0Z'/%3E%3C/svg%3E") 0 0 / 100% 240px repeat-y;
-}
-
-@media (forced-colors: active) {
-  .torn-edge {
-    display: none;
-  }
 }
 
 :focus-visible {
