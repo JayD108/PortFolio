@@ -55,3 +55,24 @@ All copy is in `src/content/`:
 - **Late-night greeting:** between 11 PM and 4 AM, visitor's time.
 
 All motion switches off for visitors who prefer reduced motion.
+
+## Tech stack
+
+Vite, React 19 and TypeScript, Tailwind CSS, Vercel Web Analytics (production only). Linting uses `oxlint` (`npm run lint`).
+
+## Project structure
+
+```
+src/            React app (components, content/, styles)
+src/content/    all site copy and data (see "Edit the content")
+scripts/        update-stats.mjs, build-resume.mjs
+public/         static assets, resume PDF, favicon, social preview image
+```
+
+## Author
+
+Mrittunjay Dubey, GitHub [@JayD108](https://github.com/JayD108)
+
+## License
+
+No license file is included yet, so all rights are reserved by default.
