@@ -2,8 +2,8 @@
 // Edit by hand only if you need to; the script overwrites this file.
 
 export const stats = {
-  updated: '2026-11-16',
-  dataset: { downloads: 512, likes: 5 },
+  updated: '2026-11-23',
+  dataset: { downloads: 608, likes: 5 },
   huggingFace: { likes: 12, repos: 5 },
-  github: { publicRepos: 18, commits90d: 360 },
+  github: { publicRepos: 19, commits90d: 361 },
 }
